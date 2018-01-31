@@ -5,8 +5,8 @@ const morgan = require('morgan');
 
 const apiRouter = require('./api/api');
 
-const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database(process.env.TEST_DATABASE || './db.sqlite');
+//const sqlite3 = require('sqlite3');
+//const db = new sqlite3.Database(process.env.TEST_DATABASE || './db.sqlite');
 
 const bot = require('./telegramBot');
 

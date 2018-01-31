@@ -1,8 +1,8 @@
 const express = require('express');
 const telegramRouter = express.Router();
 
-const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database('../db.sqlite');
+//const sqlite3 = require('sqlite3');
+//const db = new sqlite3.Database('../db.sqlite');
 
 const constants = require('../config/constants');
 const axios = require('axios');
