@@ -1,6 +1,6 @@
 const express = require('express');
 const apiRouter = express.Router();
-const artistsRouter = require('./telegram.js');
+const telegramRouter = require('./telegram.js');
 
 apiRouter.use('/telegram', telegramRouter);
 
