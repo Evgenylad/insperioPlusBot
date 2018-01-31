@@ -10,7 +10,7 @@ const token = constants.TELEGRAM_TOKEN;
 const url = constants.TELEGRAM_URL;
 console.log(token);
 
-
+/*
 let setWebhookUrl = url + token + '/setWebhook';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
 console.log(urlForWebHook);
@@ -25,9 +25,9 @@ axios
   .catch(error => {
     console.log(error);
   });
-
+*/
 telegramRouter.post('/', (req, res, next) => {
   console.log(req);
 });
-
+*
 module.exports = telegramRouter;
