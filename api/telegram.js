@@ -19,14 +19,14 @@ axios
     url: urlForWebHook
   })
   .then(res => {
-    console.log(res);
+    console.log(res.data);
   })
   .catch(error => {
     console.log(error);
   });
 
-telegramRouter.post('token', (res, req, next) => {
-  console.log('webhook', res);
+telegramRouter.post('token', (req, res, next) => {
+  console.log(req);
 });
 
 module.exports = telegramRouter;
