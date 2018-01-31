@@ -14,7 +14,7 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('/api', apiRouter);
+app.use('https://singleclick.ru/api', apiRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
