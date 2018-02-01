@@ -51,9 +51,11 @@ api.on('message', function(message)
 {
     // Received text message
     if (message.text === '/start') {
-      console.log(message.text);
+      console.log(message.chat.id);
+      let chatId = message.chat.id
       api.sendMessage({
-        text: 'Click on buttons below',
+        chat_id: chatId,
+        text: 'Привет! Я помогу тебе вести управленческий учет. <br> Тебе нужно лишь следовать подсказкам.',
         reply_markup: JSON.stringify(inlineKeyboard)
         })
         .then(function(message) {
