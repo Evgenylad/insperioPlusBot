@@ -22,16 +22,16 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('/api', apiRouter);
+app.use('https:/singleclick.ru/api', apiRouter);
 
 let options = {
   key: key,
   cert: cert
 }
 
-http.createServer((otpions, app) => {
+http.createServer((options, app) => {
   file.serve(req, res);
-  console.log('otpions');
+  console.log(app);
 }).listen(80, (req, res, next) => {
   console.log(req);
   console.log(`Server is listening on port 80`);
