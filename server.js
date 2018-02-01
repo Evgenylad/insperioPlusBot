@@ -34,7 +34,7 @@ http.createServer((otpions, app) => {
   file.serve(req, res);
 }).listen(80);
 
-https.createServer(function(req, res) {
+https.createServer((otpions, app) => {
   console.log(req);
 }).listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
