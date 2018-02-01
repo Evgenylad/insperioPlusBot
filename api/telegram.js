@@ -23,16 +23,12 @@ let deleteWebhookUrl = url + token + '/deleteWebhook';
 let getWebhookInfoUrl = url + token + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
 
-axios.post(deleteWebhookUrl)
-  .then(res => {
-  })
-  .catch(error => {
-    console.log('error', error);
-  });
-
 api.on('message', function(message)
 {
     // Received text message
+    if ('message' === '/start') {
+      api.sendMessage('Привет!')
+    }
     console.log(message);
 });
 
