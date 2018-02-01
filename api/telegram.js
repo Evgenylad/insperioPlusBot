@@ -16,18 +16,26 @@ let api = new telegram({
 const constants = require('../config/constants');
 const axios = require('axios');
 const token = constants.TELEGRAM_TOKEN;
-const url = constants.TELEGRAM_URL;
+const url = constants.TELEGRAM_URL + token;
 
-let setWebhookUrl = url + token + '/setWebhook';
-let deleteWebhookUrl = url + token + '/deleteWebhook';
-let getWebhookInfoUrl = url + token + '/getWebhookInfo';
+let setWebhookUrl = url + '/setWebhook';
+let deleteWebhookUrl = url + '/deleteWebhook';
+let getWebhookInfoUrl = url + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
+let setInlineButtons = url +'/InlineKeyboardMarkup'
 
 api.on('message', function(message)
 {
     // Received text message
     if ('message' === '/start') {
       api.sendMessage('Привет!')
+      axios.post(setInlineButtons, [[{text: 'Расход'}], [{text: 'Поступление'}]])
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
     console.log(message);
 });
