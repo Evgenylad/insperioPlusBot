@@ -31,11 +31,11 @@ const welcomeToChatMessageAttachedButtons = {
     [
       {
         text: 'Расход',
-        callback_data: '1-1'
+        callback_data: 'Cost'
       },
       {
         text: 'Приход',
-        callback_data: '1-2'
+        callback_data: 'Income'
       }
     ]
   ]
