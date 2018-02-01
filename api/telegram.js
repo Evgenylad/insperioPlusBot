@@ -44,22 +44,24 @@ const welcomeToChatMessageAttachedButtons = {
 api.on('message', function(message)
 {
     // Received text message
-    if (message.text === '/start') {
-      console.log(message.chat.id);
-      let chatId = message.chat.id
-      api.sendMessage({
-        chat_id: chatId,
-        text: 'Привет! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.',
-        reply_markup: JSON.stringify(welcomeToChatMessageAttachedButtons),
-        parse_mode: 'HTML'
-        })
-        .then(function(message) {
-            console.log(message);
-        })
-        .catch(function(err) {
-            console.log(err);
-        });
+  if (message.text === '/start') {
+    console.log(message.chat.id);
+    let chatId = message.chat.id
+    api.sendMessage({
+      chat_id: chatId,
+      text: 'Привет! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.',
+      reply_markup: JSON.stringify(welcomeToChatMessageAttachedButtons),
+      parse_mode: 'HTML'
+      })
+      .then(function(message) {
+          console.log(message);
+      })
+      .catch(function(err) {
+          console.log(err);
+      });
     }
+
+    console.log(message.callback_data);
 });
 
 api.on('inline.query', function(message)
@@ -77,6 +79,7 @@ api.on('inline.result', function(message)
 api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
+    console.log(message.callback_data);
     console.log(message.data);
 });
 
