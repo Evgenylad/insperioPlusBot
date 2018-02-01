@@ -54,7 +54,7 @@ api.on('message', function(message)
         parse_mode: 'HTML'
         })
         .then(function(message) {
-            console.log(message.text);
+            console.log(message);
         })
         .catch(function(err) {
             console.log(err);
