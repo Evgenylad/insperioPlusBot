@@ -30,9 +30,11 @@ let options = {
 }
 
 http.createServer((otpions, app) => {
-  console.log('app');
+  console.log('otpions');
   file.serve(req, res);
-}).listen(80);
+}).listen(80, () => {
+  console.log(`Server is listening on port 80`);
+});
 
 https.createServer((otpions, app) => {
   console.log(app);
