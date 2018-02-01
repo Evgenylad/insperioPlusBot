@@ -30,6 +30,13 @@ api.on('message', function(message)
     if (message.text === '/start') {
       console.log(message.text);
       api.sendMessage('Привет!')
+        .then(function(data) {
+          console.log(data);
+        })
+        .catch(function(err)
+        {
+          console.log(err);
+        });
     }
 });
 
