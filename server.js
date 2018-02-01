@@ -30,16 +30,18 @@ let options = {
 }
 
 http.createServer((otpions, app) => {
-  console.log('otpions');
   file.serve(req, res);
+  console.log('otpions');
 }).listen(80, () => {
   console.log(`Server is listening on port 80`);
 });
 
 https.createServer((otpions, app) => {
-  console.log(app);
+  console.log(options);
 }).listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
+console.log(http.request());
 
 module.exports = app;
