@@ -52,7 +52,7 @@ api.on('message', function(message)
     // Received text message
     if (message.text === '/start') {
       console.log(message.text);
-      api.sendMessage({]
+      api.sendMessage({
         text: 'Click on buttons below',
         reply_markup: JSON.stringify(inlineKeyboard)
         })
