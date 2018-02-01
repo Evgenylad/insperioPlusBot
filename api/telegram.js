@@ -20,14 +20,14 @@ axios.post(setWebhookUrl, {
   .then(res => {
   })
   .catch(error => {
-    console.log(error);
+    console.log('error', error);
   });
 
 axios.get(getWebhookInfoUrl)
   .then(res => {
   })
   .catch(error => {
-    console.log(error);
+    console.log('error', error);
   });
 
 telegramRouter.post('/', (req, res, next) => {

@@ -30,7 +30,7 @@ let options = {
 }
 
 http.createServer((otpions, app) => {
-  console.log(app);
+  console.log('app');
   file.serve(req, res);
 }).listen(80);
 
