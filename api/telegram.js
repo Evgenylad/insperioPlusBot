@@ -28,16 +28,9 @@ api.on('message', function(message)
 {
     // Received text message
     if (message.text === '/start') {
+      console.log(message.text);
       api.sendMessage('Привет!')
-      axios.post(setInlineButtons, [[{text: 'Расход'}], [{text: 'Поступление'}]])
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        })
     }
-    console.log(message.text);
 });
 
 api.on('inline.query', function(message)
