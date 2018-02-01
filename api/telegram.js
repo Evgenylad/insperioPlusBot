@@ -27,7 +27,7 @@ let setInlineButtons = url +'/InlineKeyboardMarkup'
 api.on('message', function(message)
 {
     // Received text message
-    if ('message' === '/start') {
+    if (message.text === '/start') {
       api.sendMessage('Привет!')
       axios.post(setInlineButtons, [[{text: 'Расход'}], [{text: 'Поступление'}]])
         .then(res => {
@@ -37,7 +37,7 @@ api.on('message', function(message)
           console.log(err);
         })
     }
-    console.log(message);
+    console.log(message.text);
 });
 
 api.on('inline.query', function(message)
