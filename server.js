@@ -4,8 +4,8 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-let key = fs.readFileSync('encryption/private.key');
-let cert = fs.readFileSync( 'encryption/singleclick.crt' );
+let key = fs.readFileSync('../encryption/private.key');
+let cert = fs.readFileSync( '../encryption/singleclick.crt' );
 
 let https = require('https');
 
