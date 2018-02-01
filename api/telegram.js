@@ -26,7 +26,7 @@ let setInlineButtons = url +'/InlineKeyboardMarkup'
 
 
 //Create your inline keyboard markup
-const inlineKeyboard = {
+const welcomeToChatMessageAttachedButtons = {
   inline_keyboard: [
     [
       {
@@ -36,12 +36,6 @@ const inlineKeyboard = {
       {
         text: 'Приход',
         callback_data: '1-2'
-      }
-    ],
-    [
-      {
-        text: 'Row 2',
-        callback_data: '2'
       }
     ]
   ]
@@ -56,11 +50,11 @@ api.on('message', function(message)
       api.sendMessage({
         chat_id: chatId,
         text: 'Привет! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.',
-        reply_markup: JSON.stringify(inlineKeyboard),
+        reply_markup: JSON.stringify(welcomeToChatMessageAttachedButtons),
         parse_mode: 'HTML'
         })
         .then(function(message) {
-            console.log(message);
+            console.log(message.text);
         })
         .catch(function(err) {
             console.log(err);
