@@ -24,18 +24,43 @@ let getWebhookInfoUrl = url + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
 let setInlineButtons = url +'/InlineKeyboardMarkup'
 
+
+//Create your inline keyboard markup
+const inlineKeyboard = {
+  inline_keyboard: [
+    [
+      {
+        text: 'Расход',
+        callback_data: '1-1'
+      },
+      {
+        text: 'Приход',
+        callback_data: '1-2'
+      }
+    ],
+    [
+      {
+        text: 'Row 2',
+        callback_data: '2'
+      }
+    ]
+  ]
+};
+
 api.on('message', function(message)
 {
     // Received text message
     if (message.text === '/start') {
       console.log(message.text);
-      api.sendMessage('Привет!')
-        .then(function(data) {
-          console.log(data);
+      api.sendMessage({]
+        text: 'Click on buttons below',
+        reply_markup: JSON.stringify(inlineKeyboard)
         })
-        .catch(function(err)
-        {
-          console.log(err);
+        .then(function(message) {
+            console.log(message);
+        })
+        .catch(function(err) {
+            console.log(err);
         });
     }
 });
