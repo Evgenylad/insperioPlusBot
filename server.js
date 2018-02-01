@@ -34,10 +34,4 @@ http.createServer(function(req, res) {
   file.serve(req, res);
 }).listen(80);
 
-https.createServer(function(req, res) {
-  console.log(req);
-}).listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
-
 module.exports = app;
