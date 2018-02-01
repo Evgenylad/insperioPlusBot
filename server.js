@@ -33,12 +33,10 @@ http.createServer((otpions, app) => {
   file.serve(req, res);
   console.log('otpions');
 }).listen(80, (req, res, next) => {
-  req.on('data', (data) => { // Пришла информация - записали.
-    console.log('data');
-      jsonString += data;
-  });
+  console.log(req);
   console.log(`Server is listening on port 80`);
 }).listen(PORT, (req, res, next) => {
+  console.log(req);
   req.on('data', (data) => { // Пришла информация - записали.
     console.log('data');
       jsonString += data;
