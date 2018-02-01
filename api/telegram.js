@@ -44,6 +44,7 @@ const welcomeToChatMessageAttachedButtons = {
 api.on('message', function(message)
 {
     // Received text message
+    console.log(message);
     console.log('сюда тоже пришло');
   if (message.text === '/start') {
     let chatId = message.chat.id
