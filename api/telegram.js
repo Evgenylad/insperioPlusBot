@@ -74,8 +74,8 @@ api.on('inline.result', function(message)
 api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
-    // let chatId = message.chat.id
-    console.log('calback ', message.message.chat);
+    let chatId = message.message.chat.id
+    console.log('calback ', message.message.chat.id);
     if (message.data === 'Income') {
       api.sendMessage({
         chat_id: chatId,
