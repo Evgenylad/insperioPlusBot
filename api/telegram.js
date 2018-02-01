@@ -10,8 +10,9 @@ let api = new telegram({
   }
 });
 
-//const sqlite3 = require('sqlite3');
-//const db = new sqlite3.Database('../db.sqlite');
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('../db.sqlite');
+console.log(db);
 
 const constants = require('../config/constants');
 const axios = require('axios');
@@ -44,7 +45,6 @@ const welcomeToChatMessageAttachedButtons = {
 api.on('message', function(message)
 {
     // Received text message
-    console.log('сюда тоже пришло');
   if (message !== undefined && message.text === '/start') {
     let chatId = message.chat.id
     api.sendMessage({
@@ -77,6 +77,7 @@ api.on('inline.result', function(message)
 api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
+
     console.log('calback ', message.data);
 });
 

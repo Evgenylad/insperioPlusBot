@@ -5,9 +5,6 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-let key = fs.readFileSync('../encryption/private.key');
-let cert = fs.readFileSync( '../encryption/singleclick.csr' );
-
 let http = require('http');
 let https = require('https');
 
@@ -23,11 +20,6 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use('https://singleclick.ru/api', apiRouter);
-
-let options = {
-  key: key,
-  cert: cert
-}
 
 http.createServer(function(req, res) {
   console.log(req);
