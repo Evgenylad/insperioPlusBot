@@ -29,8 +29,6 @@ let options = {
   cert: cert
 }
 
-console.log(options);
-
 http.createServer(function(req, res) {
   console.log(req);
   file.serve(req, res);
