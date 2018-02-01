@@ -26,15 +26,7 @@ api.setWebhook(setWebhookUrl,  {
     url: urlForWebHook
   })
   .then(res => {
-    console.log('res setWebhook', res);
-  })
-  .catch(error => {
-    console.log('error', error);
-  });
-
-api.getWebhookInfo(getWebhookInfoUrl)
-  .then(res => {
-    console.log('res getWebhookInfo', res);
+    console.log(res);
   })
   .catch(error => {
     console.log('error', error);
