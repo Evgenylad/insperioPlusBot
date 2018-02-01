@@ -22,7 +22,7 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('https://singleclick.ru/api', apiRouter);
+app.use('/api', apiRouter);
 
 let options = {
   key: key,

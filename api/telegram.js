@@ -32,7 +32,7 @@ axios.get(getWebhookInfoUrl)
 
 telegramRouter.post('/', (req, res, next) => {
   console.log('query');
-  console.log(req.query);
+  console.log(req);
 });
 
 module.exports = telegramRouter;
