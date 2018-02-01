@@ -24,7 +24,6 @@ app.use(bodyParser.json());
 app.use('https://singleclick.ru/api', apiRouter);
 
 https.createServer(app).listen(PORT, () => {
-  console.log(err);
   console.log(`Server is listening on port ${PORT}`);
 });
 
