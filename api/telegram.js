@@ -19,14 +19,12 @@ const token = constants.TELEGRAM_TOKEN;
 const url = constants.TELEGRAM_URL;
 
 let setWebhookUrl = url + token + '/setWebhook';
+let deleteWebhookUrl = url + token + '/deleteWebhook';
 let getWebhookInfoUrl = url + token + '/getWebhookInfo';
-let urlForWebHook = constants.API_URL + 'telegram/' + api.token;
+let urlForWebHook = constants.API_URL + 'telegram/' + token;
 
-api.setWebhook(setWebhookUrl,  {
-    url: urlForWebHook
-  })
+axios.post(deleteWebhookUrl)
   .then(res => {
-    console.log(res);
   })
   .catch(error => {
     console.log('error', error);
@@ -59,6 +57,14 @@ api.on('inline.callback.query', function(message)
 api.on('edited.message', function(message)
 {
     // Message that was edited
+    console.log(message);
+});
+
+api.on('update', function(message)
+{
+    // Generic update object
+    // Subscribe on it in case if you want to handle all possible
+    // event types in one callback
     console.log(message);
 });
 
