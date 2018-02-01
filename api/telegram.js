@@ -10,10 +10,6 @@ let api = new telegram({
   }
 });
 
-const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database('../db.sqlite');
-console.log(db);
-
 const constants = require('../config/constants');
 const axios = require('axios');
 const token = constants.TELEGRAM_TOKEN;
