@@ -79,11 +79,11 @@ api.on('inline.callback.query', function(message)
     if (message.data === 'Income') {
       api.sendMessage({
         chat_id: chatId,
-        text: 'От кого получили? \n Укажите контрагента.',
+        text: 'От кого получили? \nУкажите контрагента.',
         parse_mode: 'HTML'
         })
         .then(function(message) {
-
+          console.log(message);
         })
         .catch(function(err) {
             console.log(err);
@@ -91,11 +91,11 @@ api.on('inline.callback.query', function(message)
     } else if (message.data === 'Cost') {
       api.sendMessage({
         chat_id: chatId,
-        text: 'Кому заплатили? \n Укажите контрагента.',
+        text: 'Кому заплатили? \nУкажите контрагента.',
         parse_mode: 'HTML'
         })
         .then(function(message) {
-
+          console.log(message);
         })
         .catch(function(err) {
             console.log(err);
