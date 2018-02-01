@@ -28,7 +28,10 @@ let options = {
   cert: cert
 }
 
-https.createServer(options, app).listen(443, () => {
+console.log(options);
+
+https.createServer(options, app).listen(PORT, () => {
+  console.log(err);
   console.log(options);
   console.log(`Server is listening on port ${PORT}`);
 });
