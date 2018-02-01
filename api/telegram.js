@@ -78,7 +78,7 @@ api.on('inline.result', function(message)
 api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
-    console.log(message.data);
+    console.log('calback ', message.data);
 });
 
 api.on('edited.message', function(message)
