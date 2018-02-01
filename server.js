@@ -44,9 +44,10 @@ let server = new http.Server(function(req, res) {
   var jsonString = '';
   res.setHeader('Content-Type', 'application/json');
   req.on('data', (data) => { // Пришла информация - записали.
+    console.log('data');
       jsonString += data;
   });
-  console.log(res.on());
+  console.log(res.on('data'));
 
   req.on('end', () => {// Информации больше нет - передаём её дальше.
       routing.define(req, res, jsonString); // Функцию define мы ещё не создали.
