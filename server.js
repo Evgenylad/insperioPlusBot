@@ -29,6 +29,7 @@ let options = {
 }
 
 https.createServer(options, app).listen(443, () => {
+  console.log(options);
   console.log(`Server is listening on port ${PORT}`);
 });
 
