@@ -35,10 +35,7 @@ http.createServer((options, app) => {
 }).listen(80, (req, res, next) => {
   console.log(req);
   console.log(`Server is listening on port 80`);
-}).listen(PORT, (req, res, next) => {
-  console.log(req);
-  console.log(`Server is listening on port ${PORT}`);
-});;
+}).listen(PORT, 'https:/singleclick.ru/api');;
 
 
 module.exports = app;
