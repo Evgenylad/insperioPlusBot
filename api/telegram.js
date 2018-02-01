@@ -45,7 +45,6 @@ api.on('message', function(message)
 {
     // Received text message
   if (message.text === '/start') {
-    console.log(message.chat.id);
     let chatId = message.chat.id
     api.sendMessage({
       chat_id: chatId,
@@ -54,14 +53,12 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-          console.log(message);
+
       })
       .catch(function(err) {
           console.log(err);
       });
     }
-
-    console.log(message.callback_data);
 });
 
 api.on('inline.query', function(message)
@@ -79,7 +76,6 @@ api.on('inline.result', function(message)
 api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
-    console.log(message.callback_data);
     console.log(message.data);
 });
 
