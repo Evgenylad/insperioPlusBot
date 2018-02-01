@@ -55,7 +55,7 @@ api.on('message', function(message)
       let chatId = message.chat.id
       api.sendMessage({
         chat_id: chatId,
-        text: 'Привет! U+203C Я помогу тебе вести управленческий учет. Тебе нужно лишь следовать подсказкам.',
+        text: 'Привет! \xF0\x9F\x94\xA6  Я помогу тебе вести управленческий учет. Тебе нужно лишь следовать подсказкам.',
         reply_markup: JSON.stringify(inlineKeyboard),
         parse_mode: 'HTML'
         })
