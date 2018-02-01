@@ -21,7 +21,6 @@ const PORT = process.env.PORT || 443;
 app.use(express.static('public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
 app.use('https://singleclick.ru/api', apiRouter);
 
@@ -30,16 +29,15 @@ let options = {
   cert: cert
 }
 
-http.createServer((options, app) => {
+http.createServer(function(req, res) {
+  console.log(req);
   file.serve(req, res);
-  console.log(req);
-}).listen(80, (req, res, next) => {
-  console.log(req);
-  console.log(`Server is listening on port 80`);
-}).listen(PORT, (req, res, next) => {
-  console.log(req);
-  console.log(`Server is listening on port ${PORT}`);
-});;
+}).listen(80);
 
+https.createServer(function(req, res) {
+  console.log(req);
+}).listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
 
 module.exports = app;
