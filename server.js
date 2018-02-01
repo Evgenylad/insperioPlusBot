@@ -32,13 +32,13 @@ let options = {
 http.createServer((otpions, app) => {
   file.serve(req, res);
   console.log('otpions');
-}).listen(80, () => {
+}).listen(80, (req, res, next) => {
   req.on('data', (data) => { // Пришла информация - записали.
     console.log('data');
       jsonString += data;
   });
   console.log(`Server is listening on port 80`);
-}).listen(PORT, () => {
+}).listen(PORT, (req, res, next) => {
   req.on('data', (data) => { // Пришла информация - записали.
     console.log('data');
       jsonString += data;
@@ -46,7 +46,5 @@ http.createServer((otpions, app) => {
   console.log(`Server is listening on port ${PORT}`);
 });;
 
-
-console.log(http.request());
 
 module.exports = app;
