@@ -8,6 +8,7 @@ const morgan = require('morgan');
 let key = fs.readFileSync('../encryption/private.key');
 let cert = fs.readFileSync( '../encryption/singleclick.csr' );
 
+let http = require('http');
 let https = require('https');
 
 const apiRouter = require('./api/api');
@@ -23,7 +24,15 @@ app.use(bodyParser.json());
 
 app.use('https://singleclick.ru/api', apiRouter);
 
-https.createServer(app).listen(PORT, () => {
+let options = {
+  key: key,
+  cert: cert
+}
+
+console.log(options);
+
+https.createServer(options, app).listen(PORT, () => {
+  console.log(options);
   console.log(`Server is listening on port ${PORT}`);
 });
 
