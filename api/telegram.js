@@ -16,8 +16,7 @@ let getWebhookInfoUrl = url + token + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
 console.log(urlForWebHook);
 
-axios
-  .post(setWebhookUrl, {
+axios.post(setWebhookUrl, {
     url: urlForWebHook
   })
   .then(res => {
