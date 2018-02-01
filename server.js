@@ -28,31 +28,25 @@ let options = {
   key: key,
   cert: cert
 }
-/*
-http.createServer((otpions, app) => {
-  console.log('otpions');
-}).listen(80, (res, req, next) => {
-  console.log(`Server is listening on port 80`);
-}).listen(PORT, (res, req, next) => {
-  console.log(res.on());
-  console.log(`Server is listening on port ${PORT}`);
-});; */
 
-let server = new http.Server(function(req, res) {
-  // API сервера будет принимать только POST-запросы и только JSON, так что записываем
-  // всю нашу полученную информацию в переменную jsonString
-  var jsonString = '';
-  res.setHeader('Content-Type', 'application/json');
+http.createServer((otpions, app) => {
+  file.serve(req, res);
+  console.log('otpions');
+}).listen(80, () => {
   req.on('data', (data) => { // Пришла информация - записали.
     console.log('data');
       jsonString += data;
   });
-  console.log(res.on('data'));
-
-  req.on('end', () => {// Информации больше нет - передаём её дальше.
-      routing.define(req, res, jsonString); // Функцию define мы ещё не создали.
+  console.log(`Server is listening on port 80`);
+}).listen(PORT, () => {
+  req.on('data', (data) => { // Пришла информация - записали.
+    console.log('data');
+      jsonString += data;
   });
-});
-server.listen(443);
+  console.log(`Server is listening on port ${PORT}`);
+});;
+
+
+console.log(http.request());
 
 module.exports = app;
