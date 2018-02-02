@@ -62,7 +62,7 @@ api.on('message', function(message)
             console.log(result);
             client.close();
           });
-          client.collection('messages').findOne({}, , function(err, result) {
+          client.collection('messages').findOne({}, function(err, result) {
             if (err) throw err;
             console.log(result);
             client.close();
