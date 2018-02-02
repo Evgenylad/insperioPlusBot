@@ -54,7 +54,8 @@ api.on('message', function(message)
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
           let text = message.text;
           if (err) throw err;
-          let db = client.db()
+          console.log(client);
+          let db = client.db('admin')
           console.log(db);
           db.collection('messages').insertOne({
             text: 'some text'
