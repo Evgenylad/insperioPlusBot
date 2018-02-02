@@ -57,11 +57,11 @@ api.on('message', function(message)
           let db = client.db(dbName)
           let collection = db.collection('messages').find({}).toArray(function(err, result) {
             if (err) throw err;
-            console.log(result);
+            console.log('result', result);
             client.close();
             return result;
           });
-          console.log(collection);
+          console.log('collection', collection);
           let text = message.text;
           let user = message.from;
           if (err) throw err;
