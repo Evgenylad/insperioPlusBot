@@ -106,12 +106,8 @@ api.on('inline.callback.query', function(message)
         console.log(result.user.id);
         client.close();
       });
-      db.collection('messages').find({}).taArray((err, result) => {
-        console.log(result.user.id);
-        client.close();
-      });
     });
-
+/*
     if (message.data === 'Income') {
       api.sendMessage({
         chat_id: chatId,
@@ -137,6 +133,7 @@ api.on('inline.callback.query', function(message)
             console.log(err);
         });
     }
+    */
 });
 
 api.on('edited.message', function(message)
