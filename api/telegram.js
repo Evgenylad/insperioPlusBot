@@ -57,6 +57,7 @@ api.on('message', function(message)
           let collection;
           console.log(message);
           let text = message.text;
+          let user = message.from;
           if (err) throw err;
           let db = client.db(dbName)
           let myQuery = {user: user, lastMessage: text};
@@ -65,6 +66,12 @@ api.on('message', function(message)
               if (err) throw err;
               client.close();
             });
+          } else {
+            collection = db.collection('messages').updateOne(myquery, myquery, function(err, res) {
+              if (err) throw err;
+              console.log("1 document updated");
+              db.close();
+            })
           }
 
           db.collection('messages').find({}).toArray(function(err, result) {
