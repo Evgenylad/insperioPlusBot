@@ -89,6 +89,7 @@ api.on('message', function(message)
         parse_mode: 'HTML'
         })
         .then(function(message) {
+          console.log(message);
           api.kickChatMember({
             chat_id: chatId,
             user_id: userId
