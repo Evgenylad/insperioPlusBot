@@ -3,6 +3,7 @@ const express = require('express');
 const telegramRouter = express.Router();
 const telegram = require('telegram-bot-api');
 const MongoClient = require('mongodb').MongoClient;
+const dbName = 'telegramBot';
 
 let api = new telegram({
   token: '516400841:AAF_JfiI53pYZejY2jW4lRguhJh1MTPepfY',
@@ -54,8 +55,7 @@ api.on('message', function(message)
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
           let text = message.text;
           if (err) throw err;
-          console.log(client);
-          let db = client.db('telegramBot')
+          let db = client.db(dbName)
           console.log(db);
           db.collection('messages').insertOne({
             text: 'some text'
