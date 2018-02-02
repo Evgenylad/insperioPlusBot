@@ -60,7 +60,7 @@ api.on('message', function(message)
             console.log(result);
             client.close();
           });
-          console.log(collection);
+
           let text = message.text;
           let user = message.from;
           if (err) throw err;
