@@ -98,7 +98,14 @@ api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
     let chatId = message.message.chat.id
-    console.log('callback ', message.message.chat);
+    console.log('callback ', message.message.chat.id);
+    MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+      let db = client.db(dbName)
+      if (err) throw err;
+      db.find({}).taArray((err, result) => {
+        console.log(result.user.id);
+      });
+    });
 
     if (message.data === 'Income') {
       api.sendMessage({
