@@ -39,7 +39,7 @@ const welcomeToChatMessageAttachedButtons = {
   ]
 };
 
-const verifiedUsers = user.id === constants.ACEPTED_USERS.evgenyId || user.id === constants.ACEPTED_USERS.evgenyId;
+const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 api.on('message', function(message)
 {
     // Received text message
