@@ -56,12 +56,20 @@ api.on('message', function(message)
           let text = message.text;
           if (err) throw err;
           let db = client.db(dbName)
+          var myquery = { text: /^O/ };
+          db.collection('messages').deleteMany(myquery, function(err, obj) {
+            if (err) throw err;
+            console.log(obj.result.n + " document(s) deleted");
+            client.close();
+          });
+          
           db.collection('messages').insertOne({
-            text: text
+            lastMessage: text
           }, function(err, result) {
             if (err) throw err;
             client.close();
           });
+
           db.collection('messages').find({}).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
