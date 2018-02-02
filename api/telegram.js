@@ -55,30 +55,26 @@ api.on('message', function(message)
       .then(function(message) {
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
           let db = client.db(dbName)
-          let collection = db.collection('messages').find({}).toArray(function(err, result) {
-            if (err) throw err;
-            console.log('result', result);
-            client.close();
-            return result;
-          });
-          console.log('collection', collection);
           let text = message.text;
           let user = message.from;
           if (err) throw err;
           let myQuery = {user: user, lastMessage: text};
-          if (collection === undefined) {
-            console.log(collection);
-            collection = db.collection('messages').insertOne(myQuery, function(err, result) {
-              if (err) throw err;
-              client.close();
-            });
-          } else {
-            collection = db.collection('messages').updateOne(myquery, myquery, function(err, res) {
-              if (err) throw err;
-              console.log("1 document updated");
-              db.close();
-            })
-          }
+          db.collection('messages').find({}).toArray(function(err, result) {
+            if (err) throw err;
+            if (!result) {
+              db.collection('messages').insertOne(myQuery, function(err, result) {
+                if (err) throw err;
+                client.close();
+              });
+            } else {
+              db.collection('messages').updateOne(myquery, myquery, function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+                db.close();
+              })
+            }
+            client.close();
+          });
         });
       });
     }
