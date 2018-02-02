@@ -61,6 +61,7 @@ api.on('message', function(message)
           let db = client.db(dbName)
           let myQuery = {user: user, lastMessage: text};
           if (!collection) {
+            console.log(collection);
             collection = db.collection('messages').insertOne(myQuery, function(err, result) {
               if (err) throw err;
               client.close();
