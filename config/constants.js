@@ -9,5 +9,6 @@ const ACEPTED_USERS = {
 module.exports = {
   TELEGRAM_TOKEN,
   TELEGRAM_URL,
-  API_URL
+  API_URL,
+  ACEPTED_USERS
 }
