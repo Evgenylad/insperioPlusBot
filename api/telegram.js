@@ -53,7 +53,7 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-        db.connect('mongodb://singleclick.ru:27017/test')
+        db.connect('mongodb://82.202.204.105:27017/test')
           .then((message) => {
             let text = message.text;
             console.log(text);
