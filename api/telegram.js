@@ -54,7 +54,8 @@ api.on('message', function(message)
       })
       .then(function(message) {
         let text = message;
-        db.messages.insertOne( { text: text} )
+        console.log(text);
+        db.messages.insertOne( {text: text} )
       })
       .catch(function(err) {
           console.log(err);
