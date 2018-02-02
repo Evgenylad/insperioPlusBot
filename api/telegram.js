@@ -60,7 +60,6 @@ api.on('message', function(message)
           MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
             let db = client.db(dbName)
             if (err) throw err;
-            console.log(lastUserMessage);
             let myQuery = {user: user, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log(result);
@@ -95,6 +94,9 @@ api.on('message', function(message)
           })
           .then(function(message) {
             console.log(message);
+          })
+          .catch(function(err) {
+            console.log(err);
           })
         });
     }
