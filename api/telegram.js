@@ -53,7 +53,7 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-        database.connect(requestBody.MongoDBURI)
+        db.connect(requestBody.MongoDBURI)
           .then((message) => {
             let text = message.text;
             console.log(text);
