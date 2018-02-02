@@ -65,7 +65,7 @@ api.on('message', function(message)
           db.collection('messages').find({}).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
-            db.close();
+            client.close();
           });
         });
       });
