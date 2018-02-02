@@ -59,13 +59,14 @@ api.on('message', function(message)
             if (err) throw err;
             console.log(result);
             client.close();
+            return result;
           });
-
+          console.log(collection);
           let text = message.text;
           let user = message.from;
           if (err) throw err;
           let myQuery = {user: user, lastMessage: text};
-          if (!collection) {
+          if (collection === undefined) {
             console.log(collection);
             collection = db.collection('messages').insertOne(myQuery, function(err, result) {
               if (err) throw err;
