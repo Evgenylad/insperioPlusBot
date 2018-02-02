@@ -60,6 +60,7 @@ api.on('message', function(message)
           if (err) throw err;
           let myQuery = {user: user, lastMessage: text};
           db.collection('messages').find({}).toArray(function(err, result) {
+            console.log(result);
             if (err) throw err;
             if (!result) {
               db.collection('messages').insertOne(myQuery, function(err, result) {
