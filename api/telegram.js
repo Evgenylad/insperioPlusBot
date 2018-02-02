@@ -53,15 +53,14 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-        db.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot')
-          .then((message) => {
-            let text = message.text;
-            console.log(text);
-            db.createCollection('messages', (err, res) => {
-              console.log(res);
-            });
-          })
-      })
+        db.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, res) => {
+          let text = message.text;
+          console.log(text);
+          db.createCollection('messages', (err, res) => {
+            console.log(res);
+          });
+        });
+      });
       .catch(function(err) {
           console.log(err);
       });
