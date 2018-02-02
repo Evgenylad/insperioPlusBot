@@ -103,7 +103,7 @@ api.on('inline.callback.query', function(message)
       let db = client.db(dbName)
       if (err) throw err;
       db.collection('messages').find({}).toArray(function(err, result) {
-        console.log(result.user.id);
+        console.log(result);
         client.close();
       });
     });
