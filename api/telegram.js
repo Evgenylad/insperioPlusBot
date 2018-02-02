@@ -56,11 +56,6 @@ api.on('message', function(message)
           let text = message.text;
           if (err) throw err;
           let db = client.db(dbName)
-          db.collection('messages').drop(function(err, delOK) {
-            if (err) throw err;
-            if (delOK) console.log("Collection deleted");
-            client.close();
-          });
 
           db.collection('messages').insertOne({
             lastMessage: text
@@ -69,6 +64,7 @@ api.on('message', function(message)
             client.close();
           });
 
+          console.log(db.collection('messages'));
           db.collection('messages').find({}).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
