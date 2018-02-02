@@ -48,7 +48,8 @@ api.on('message', function(message)
     let user = message.from;
     let lastUserMessage = message.text;
     console.log(message);
-    if (chatId === constants.ACEPTED_USERS.evgenyId || chatId === constants.ACEPTED_USERS.evgenyId) {
+    console.log(constants.ACEPTED_USERS);
+    if (user === constants.ACEPTED_USERS.evgenyId || user === constants.ACEPTED_USERS.evgenyId) {
       api.sendMessage({
         chat_id: chatId,
         text: `Привет, ${userName}! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.`,
