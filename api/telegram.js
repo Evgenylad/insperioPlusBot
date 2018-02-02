@@ -61,9 +61,6 @@ api.on('message', function(message)
           });
         });
       });
-      .catch(function(err) {
-          console.log(err);
-      });
     }
 });
 
