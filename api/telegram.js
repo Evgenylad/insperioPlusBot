@@ -53,9 +53,12 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-        let text = message;
-        console.log(text);
-        db.messages.insertOne( {text: text} )
+        database.connect(requestBody.MongoDBURI)
+          .then((message) => {
+            let text = message.text;
+            console.log(text);
+            db.messages.insertOne( {text: text} )
+          })
       })
       .catch(function(err) {
           console.log(err);
