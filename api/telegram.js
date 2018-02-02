@@ -47,39 +47,50 @@ api.on('message', function(message)
     let userName = message.from.first_name;
     let user = message.from;
     let lastUserMessage = message.text;
-
-    api.sendMessage({
-      chat_id: chatId,
-      text: `Привет, ${userName}! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.`,
-      reply_markup: JSON.stringify(welcomeToChatMessageAttachedButtons),
-      parse_mode: 'HTML'
-      })
-      .then(function(message) {
-        MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
-          let db = client.db(dbName)
-          if (err) throw err;
-          console.log(lastUserMessage);
-          let myQuery = {user: user, lastMessage: lastUserMessage};
-          db.collection('messages').find({}).toArray(function(err, result) {
-            console.log(result);
+    console.log(message);
+    if (chatId === constants.ACEPTED_USERS.evgenyId || chatId === constants.ACEPTED_USERS.evgenyId) {
+      api.sendMessage({
+        chat_id: chatId,
+        text: `Привет, ${userName}! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.`,
+        reply_markup: JSON.stringify(welcomeToChatMessageAttachedButtons),
+        parse_mode: 'HTML'
+        })
+        .then(function(message) {
+          MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+            let db = client.db(dbName)
             if (err) throw err;
-            if (!result) {
-              db.collection('messages').insertOne(myQuery, function(err, result) {
-                if (err) throw err;
-                client.close();
-              });
-            } else {
-              db.collection('messages').drop();
-              db.collection('messages').insertOne(myQuery, function(err, result) {
-                if (err) throw err;
-                client.close();
-              });
-            }
-            client.close();
+            console.log(lastUserMessage);
+            let myQuery = {user: user, lastMessage: lastUserMessage};
+            db.collection('messages').find({}).toArray(function(err, result) {
+              console.log(result);
+              if (err) throw err;
+              if (!result) {
+                db.collection('messages').insertOne(myQuery, function(err, result) {
+                  if (err) throw err;
+                  client.close();
+                });
+              } else {
+                db.collection('messages').drop();
+                db.collection('messages').insertOne(myQuery, function(err, result) {
+                  if (err) throw err;
+                  client.close();
+                });
+              }
+              client.close();
+            });
           });
         });
-      });
+    } else {
+      api.sendMessage({
+        chat_id: chatId,
+        text: `У вас нет доступа к данному сервису!`,
+        parse_mode: 'HTML'
+        })
+        .then(function(message) {
+
+        });
     }
+  }
 });
 
 api.on('inline.query', function(message)
@@ -103,7 +114,7 @@ api.on('inline.callback.query', function(message)
       let db = client.db(dbName)
       if (err) throw err;
       db.collection('messages').find({}).toArray(function(err, result) {
-        console.log(result[0].user);
+        console.log(result[0].user.id);
         client.close();
       });
     });
