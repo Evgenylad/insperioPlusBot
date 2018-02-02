@@ -53,11 +53,13 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-        db.connect('test')
+        db.connect('mongodb:test')
           .then((message) => {
             let text = message.text;
             console.log(text);
-            db.messages.insertOne( {text: text} )
+            db.createCollection('messages', (err, res) => {
+              console.log(res);
+            });
           })
       })
       .catch(function(err) {
