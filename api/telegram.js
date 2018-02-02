@@ -54,6 +54,7 @@ api.on('message', function(message)
       })
       .then(function(message) {
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+          let db = client.db(dbName)
           let collection = db.collection('messages').find({}).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
@@ -63,7 +64,6 @@ api.on('message', function(message)
           let text = message.text;
           let user = message.from;
           if (err) throw err;
-          let db = client.db(dbName)
           let myQuery = {user: user, lastMessage: text};
           if (!collection) {
             console.log(collection);
