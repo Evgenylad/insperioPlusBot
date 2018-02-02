@@ -2,7 +2,7 @@
 const express = require('express');
 const telegramRouter = express.Router();
 const telegram = require('telegram-bot-api');
-const DB = require('../db/db');
+const MongoClient = require('mongodb').MongoClient;
 
 let api = new telegram({
   token: '516400841:AAF_JfiI53pYZejY2jW4lRguhJh1MTPepfY',
@@ -53,13 +53,22 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-        console.log(message);
-        db.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+        MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
           let text = message.text;
+          if (err) throw err;
           console.log(client);
-          db.collection('messages').insertOne({
+          client.collection('messages').insertOne({
             text: 'some text'
-          })
+          }, function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+          });
+          client.collection('messages').findOne({}, , function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+          });)
           const collection =db.collection('messages');
           console.log(collection);
         });
