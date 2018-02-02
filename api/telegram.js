@@ -67,11 +67,11 @@ api.on('message', function(message)
                 client.close();
               });
             } else {
-              db.collection('messages').updateOne(myquery, myquery, function(err, res) {
+              db.collection('messages').drop();
+              db.collection('messages').insertOne(myQuery, function(err, result) {
                 if (err) throw err;
-                console.log("1 document updated");
-                db.close();
-              })
+                client.close();
+              });
             }
             client.close();
           });
