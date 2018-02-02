@@ -39,6 +39,7 @@ const welcomeToChatMessageAttachedButtons = {
   ]
 };
 
+const verifiedUsers = user.id === constants.ACEPTED_USERS.evgenyId || user.id === constants.ACEPTED_USERS.evgenyId;
 api.on('message', function(message)
 {
     // Received text message
@@ -49,7 +50,7 @@ api.on('message', function(message)
     let lastUserMessage = message.text;
 
   if (message !== undefined && message.text === '/start') {
-    if (user.id === constants.ACEPTED_USERS.evgenyId || user.id === constants.ACEPTED_USERS.evgenyId) {
+    if (verifiedUsers) {
       api.sendMessage({
         chat_id: chatId,
         text: `Привет, ${userName}! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.`,
@@ -87,17 +88,7 @@ api.on('message', function(message)
         parse_mode: 'HTML'
         })
         .then(function(message) {
-          console.log(message);
-          api.kickChatMember({
-            chat_id: chatId,
-            user_id: userId
-          })
-          .then(function(message) {
-            console.log(message);
-          })
-          .catch(function(err) {
-            console.log(err);
-          })
+
         });
     }
   }
