@@ -43,22 +43,23 @@ api.on('message', function(message)
 {
     // Received text message
   if (message !== undefined && message.text === '/start') {
-    let chatId = message.chat.id
-    console.log(message);
+    let chatId = message.chat.id;
+    let userName = message.from.first_name;
 
     api.sendMessage({
       chat_id: chatId,
-      text: 'Привет! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.',
+      text: `Привет, ${userName}! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.`,
       reply_markup: JSON.stringify(welcomeToChatMessageAttachedButtons),
       parse_mode: 'HTML'
       })
       .then(function(message) {
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
           let collection;
+          console.log(message);
           let text = message.text;
           if (err) throw err;
           let db = client.db(dbName)
-          let myQuery = {lastMessage: text};
+          let myQuery = {user: user, lastMessage: text};
           if (!collection) {
             collection = db.collection('messages').insertOne(myQuery, function(err, result) {
               if (err) throw err;
