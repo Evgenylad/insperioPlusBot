@@ -59,7 +59,7 @@ api.on('message', function(message)
           db.collection('messages').drop(function(err, delOK) {
             if (err) throw err;
             if (delOK) console.log("Collection deleted");
-            db.close();
+            client.close();
           });
 
           db.collection('messages').insertOne({
