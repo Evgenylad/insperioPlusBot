@@ -62,7 +62,7 @@ api.on('message', function(message)
             if (err) throw err;
             client.close();
           });
-          db.collection('messages').find.toArray(function(err, result) {
+          db.collection('messages').find({}).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
             db.close();
