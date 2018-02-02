@@ -54,7 +54,12 @@ api.on('message', function(message)
       })
       .then(function(message) {
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
-          let collection;
+          let collection = db.collection('messages').find({}).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            client.close();
+          });
+          console.log(collection);
           let text = message.text;
           let user = message.from;
           if (err) throw err;
@@ -73,12 +78,6 @@ api.on('message', function(message)
               db.close();
             })
           }
-
-          db.collection('messages').find({}).toArray(function(err, result) {
-            if (err) throw err;
-            console.log(result);
-            client.close();
-          });
         });
       });
     }
