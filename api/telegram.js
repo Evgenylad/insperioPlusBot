@@ -21,7 +21,6 @@ let deleteWebhookUrl = url + '/deleteWebhook';
 let getWebhookInfoUrl = url + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
 let setInlineButtons = url +'/InlineKeyboardMarkup'
-let db = new DB;
 
 //Create your inline keyboard markup
 const welcomeToChatMessageAttachedButtons = {
@@ -44,7 +43,6 @@ api.on('message', function(message)
     // Received text message
   if (message !== undefined && message.text === '/start') {
     let chatId = message.chat.id
-    console.log(db);
 
     api.sendMessage({
       chat_id: chatId,
@@ -62,12 +60,12 @@ api.on('message', function(message)
           }, function(err, result) {
             if (err) throw err;
             console.log(result);
-            db.close();
+            client.close();
           });
           client.collection('messages').findOne({}, , function(err, result) {
             if (err) throw err;
             console.log(result);
-            db.close();
+            client.close();
           });)
           const collection =db.collection('messages');
           console.log(collection);
