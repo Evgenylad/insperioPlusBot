@@ -42,7 +42,7 @@ const welcomeToChatMessageAttachedButtons = {
 api.on('message', function(message)
 {
     // Received text message
-    let chatId = '@insperioPlusBot';
+    let chatId = message.chat.id;
     let userName = message.from.first_name;
     let user = message.from;
     let userId = message.from.id;
