@@ -62,10 +62,10 @@ api.on('message', function(message)
             if (err) throw err;
             client.close();
           });
-          db.collection('messages').findOne({}, function(err, result) {
+          db.collection('messages').find.toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
-            client.close();
+            db.close();
           });
         });
       });
