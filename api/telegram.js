@@ -74,7 +74,7 @@ api.on('message', function(message)
             })
           }
 
-          db.collection('messages').find({}).toArray(function(err, result) {
+          db.collection('messages').find({myQuery.lastMessage}).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
             client.close();
