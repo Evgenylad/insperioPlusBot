@@ -66,7 +66,7 @@ api.on('message', function(message)
             if (err) throw err;
             console.log(result);
             client.close();
-          });)
+          });
           const collection =db.collection('messages');
           console.log(collection);
         });
