@@ -55,7 +55,7 @@ api.on('message', function(message)
           let text = message.text;
           if (err) throw err;
           console.log(client);
-          let db = client.db('admin')
+          let db = client.db('telegramBot')
           console.log(db);
           db.collection('messages').insertOne({
             text: 'some text'
