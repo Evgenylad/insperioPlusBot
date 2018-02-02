@@ -2,7 +2,7 @@
 const express = require('express');
 const telegramRouter = express.Router();
 const telegram = require('telegram-bot-api');
-const db = require('mongodb');
+const DB = require('../db/db');
 
 let api = new telegram({
   token: '516400841:AAF_JfiI53pYZejY2jW4lRguhJh1MTPepfY',
@@ -21,7 +21,7 @@ let deleteWebhookUrl = url + '/deleteWebhook';
 let getWebhookInfoUrl = url + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
 let setInlineButtons = url +'/InlineKeyboardMarkup'
-
+let db = new DB;
 
 //Create your inline keyboard markup
 const welcomeToChatMessageAttachedButtons = {
@@ -44,6 +44,7 @@ api.on('message', function(message)
     // Received text message
   if (message !== undefined && message.text === '/start') {
     let chatId = message.chat.id
+    console.log(db);
     api.sendMessage({
       chat_id: chatId,
       text: 'Привет! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.',
