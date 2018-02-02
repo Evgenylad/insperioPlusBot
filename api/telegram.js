@@ -47,8 +47,8 @@ api.on('message', function(message)
     let userName = message.from.first_name;
     let user = message.from;
     let lastUserMessage = message.text;
-    console.log(message);
-    console.log(constants.ACEPTED_USERS);
+    console.log(typeof user);
+    console.log(typeof constants.ACEPTED_USERS.evgenyId);
     if (user === constants.ACEPTED_USERS.evgenyId || user === constants.ACEPTED_USERS.evgenyId) {
       api.sendMessage({
         chat_id: chatId,
