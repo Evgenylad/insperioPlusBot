@@ -50,7 +50,7 @@ api.on('message', function(message)
     let lastUserMessage = message.text;
 
   if (message !== undefined && message.text === '/start') {
-    if (verifiedUsers) {
+    if (userId === verifiedUsers) {
       api.sendMessage({
         chat_id: chatId,
         text: `Привет, ${userName}! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.`,
