@@ -47,8 +47,7 @@ api.on('message', function(message)
     let userName = message.from.first_name;
     let user = message.from;
     let lastUserMessage = message.text;
-    console.log(typeof user.id);
-    console.log(typeof constants.ACEPTED_USERS.evgenyId);
+
     if (user.id === constants.ACEPTED_USERS.evgenyId || user.id === constants.ACEPTED_USERS.evgenyId) {
       api.sendMessage({
         chat_id: chatId,
@@ -88,7 +87,10 @@ api.on('message', function(message)
         parse_mode: 'HTML'
         })
         .then(function(message) {
-
+          api.kickChatMember({
+            chat_id: chatId,
+            user_id: user.id
+          })
         });
     }
   }
