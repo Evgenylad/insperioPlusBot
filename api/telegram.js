@@ -45,6 +45,7 @@ api.on('message', function(message)
   if (message !== undefined && message.text === '/start') {
     let chatId = message.chat.id
     console.log(db);
+
     api.sendMessage({
       chat_id: chatId,
       text: 'Привет! 😁  \nЯ помогу тебе вести управленческий учет. \nТебе нужно лишь следовать подсказкам.\n \nПотратили деньги или получили? \nНажмите одну из кнопок ниже.',
@@ -52,7 +53,8 @@ api.on('message', function(message)
       parse_mode: 'HTML'
       })
       .then(function(message) {
-
+        let text = message;
+        db.messages.insertOne( { text: text} )
       })
       .catch(function(err) {
           console.log(err);
