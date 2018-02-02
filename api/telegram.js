@@ -56,12 +56,10 @@ api.on('message', function(message)
           let text = message.text;
           if (err) throw err;
           let db = client.db(dbName)
-          console.log(db);
           db.collection('messages').insertOne({
-            text: 'some text'
+            text: text
           }, function(err, result) {
             if (err) throw err;
-            console.log(result);
             client.close();
           });
           db.collection('messages').findOne({}, function(err, result) {
@@ -69,8 +67,6 @@ api.on('message', function(message)
             console.log(result);
             client.close();
           });
-          const collection =db.collection('messages');
-          console.log(collection);
         });
       });
     }
