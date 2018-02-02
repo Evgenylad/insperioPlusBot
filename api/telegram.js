@@ -55,7 +55,6 @@ api.on('message', function(message)
       .then(function(message) {
         MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
           let collection;
-          console.log(message);
           let text = message.text;
           let user = message.from;
           if (err) throw err;
