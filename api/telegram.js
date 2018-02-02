@@ -42,12 +42,14 @@ const welcomeToChatMessageAttachedButtons = {
 api.on('message', function(message)
 {
     // Received text message
-  if (message !== undefined && message.text === '/start') {
     let chatId = message.chat.id;
     let userName = message.from.first_name;
     let user = message.from;
+    let userId = message.from.id;
     let lastUserMessage = message.text;
 
+  if (message !== undefined && message.text === '/start') {
+    console.log(message.text);
     if (user.id === constants.ACEPTED_USERS.evgenyId || user.id === constants.ACEPTED_USERS.evgenyId) {
       api.sendMessage({
         chat_id: chatId,
@@ -89,7 +91,7 @@ api.on('message', function(message)
         .then(function(message) {
           api.kickChatMember({
             chat_id: chatId,
-            user_id: user.id
+            user_id: userId
           })
         });
     }
