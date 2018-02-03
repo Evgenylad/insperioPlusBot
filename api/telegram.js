@@ -82,7 +82,7 @@ api.on('message', function(message)
             let variableToStoreData2;
             db.collection('costs').find({}).toArray(function(err, result) {
               console.log('reuslt', result[0].user.last_name);
-              variableToStoreData = result;
+              variableToStoreData1 = result;
               callback();
             });
 
