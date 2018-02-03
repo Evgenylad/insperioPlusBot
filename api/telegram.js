@@ -127,6 +127,7 @@ api.on('inline.callback.query', function(message)
     let obj = {};
 
     if (message.data === 'Income' || message.data === 'Cost') {
+      obj = {cashFlowType: message.datas}
       api.sendMessage({
         chat_id: chatId,
         text: 'Укажите контрагента.',
@@ -134,10 +135,14 @@ api.on('inline.callback.query', function(message)
         })
         .then(function(message) {
           console.log('message', message);
+          console.log('obj1 - ', obj);
           api.on('message', function(message) {
             console.log('message 2', message);
             obj.paymentRecipient = message.text;
-            console.log(obj);
+            console.log('obj - ', obj);
+          })
+          .then(function(message) {
+            console.log('message 3', message);
           });
         })
         .catch(function(err) {
