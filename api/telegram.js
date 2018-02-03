@@ -198,7 +198,7 @@ api.on('inline.callback.query', function(message)
                       if (err) throw err;
 
                       db.collection('costs').find({}).toArray(function(err, result) {
-                        console.log(result);
+                        console.log('записи сохраненные в базе на данный момент', result);
                         if (err) throw err;
                         if (!result) {
                           db.collection('costs').insertOne(obj, function(err, result) {
@@ -207,7 +207,7 @@ api.on('inline.callback.query', function(message)
                             client.close();
                           });
                         } else {
-                          db.collection('messages').drop();
+                          db.collection('costs').drop();
                           db.collection('costs').insertOne(obj, function(err, result) {
                             if (err) throw err;
                             console.log(result);
