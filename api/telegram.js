@@ -113,7 +113,7 @@ api.on('inline.callback.query', function(message)
     console.log('callback ', message.message.chat.id);
     MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
       let db = client.db(dbName)
-      console.log('inline_keyboard');
+      console.log(db);
       if (err) throw err;
       db.collection('messages').find({}).toArray(function(err, result) {
         console.log(result[0].user.id);
