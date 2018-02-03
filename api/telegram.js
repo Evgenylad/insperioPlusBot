@@ -80,10 +80,10 @@ api.on('message', function(message)
             let costsDocument = function(callback) {
               db.collection('costs').find({}).toArray(function(err, result) {
                 console.log('reuslt', result[0].user.last_name);
-                callback(result);
+                callback('', result);
               });
             }
-            console.log('costsDocument - ', costsDocument);
+            console.log('costsDocument - ', costsDocument());
             db.collection('costs').find({}).toArray(function(err, result) {
               console.log('reuslt', result[0].user.last_name);
             });
