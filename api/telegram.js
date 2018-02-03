@@ -21,7 +21,9 @@ let setWebhookUrl = url + '/setWebhook';
 let deleteWebhookUrl = url + '/deleteWebhook';
 let getWebhookInfoUrl = url + '/getWebhookInfo';
 let urlForWebHook = constants.API_URL + 'telegram/' + token;
-let setInlineButtons = url +'/InlineKeyboardMarkup'
+let setInlineButtons = url +'/InlineKeyboardMarkup';
+let userInMessages;
+let userInCosts;
 
 //Create your inline keyboard markup
 const welcomeToChatMessageAttachedButtons = {
@@ -78,22 +80,6 @@ api.on('message', function(message)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
 
-            let variableToStoreData1;
-            let variableToStoreData2;
-            db.collection('costs').find({}).toArray(function(err, result) {
-              variableToStoreData1 = result;
-            });
-
-            db.collection('messages').find({}).toArray(function(err, result) {
-              variableToStoreData2 = result;
-              callback();
-            });
-
-            function callback() {
-               console.log('variableToStoreData1 - ', variableToStoreData1) // now it's not undefined
-               console.log('variableToStoreData2 - ', variableToStoreData2) // now it's not undefined
-            }
-
             db.collection('messages').find({}).toArray(function(err, result) {
 
               if (err) throw err;
@@ -103,7 +89,7 @@ api.on('message', function(message)
                   client.close();
                 });
               } else if (user === result){
-                // db.collection('messages').drop();
+                db.collection('messages').drop();
                 db.collection('messages').insertOne(myQuery, function(err, result) {
                   if (err) throw err;
                   client.close();
@@ -193,6 +179,19 @@ api.on('inline.callback.query', function(message)
           console.log('obj1 - ', obj);
           api.on('message', function(message) {
             if (message.text !== '/start') {
+              db.collection('costs').find({}).toArray(function(err, result) {
+                userInCosts = result[0].user;
+              });
+
+              db.collection('messages').find({}).toArray(function(err, result) {
+                userInMessages = result[0].user;
+                callback();
+              });
+
+              function callback() {
+                 console.log('userInMessages - ', userInMessages)
+                 console.log('userInCosts - ', userInCosts)
+              }
               console.log('message 2', message);
               obj.paymentRecipient = message.text;
               console.log('obj2 - ', obj);
