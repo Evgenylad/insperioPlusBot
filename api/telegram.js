@@ -77,6 +77,11 @@ api.on('message', function(message)
             let db = client.db(dbName)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
+            let costDocuments = db.collection('costs').find({}).toArray(function(err, result) {
+              return result;
+            });
+            console.log(costDocuments);
+            
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log(result);
               if (err) throw err;
@@ -212,7 +217,6 @@ api.on('inline.callback.query', function(message)
                           db.collection('costs').drop();
                           db.collection('costs').insertOne(obj, function(err, result) {
                             if (err) throw err;
-                            console.log('data in db', result);
                             client.close();
                           });
                         }
