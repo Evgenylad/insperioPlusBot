@@ -82,7 +82,7 @@ api.on('message', function(message)
               console.log(result);
               costDocuments = result
             });
-            console.log(costDocuments);
+            console.log('costDocuments ', costDocuments);
 
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log(result);
