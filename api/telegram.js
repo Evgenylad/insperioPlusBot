@@ -79,9 +79,8 @@ api.on('message', function(message)
             let myQuery = {user: user, lastMessage: lastUserMessage};
             let costDocuments;
             db.collection('costs').find({}).toArray(function(err, result) {
-
-            })
-            .then(function(result) {
+              return result;
+            }).then(function(result) {
               console.log(result);
             });
             console.log('costDocuments ', costDocuments);
