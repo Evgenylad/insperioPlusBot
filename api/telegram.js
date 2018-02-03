@@ -77,9 +77,15 @@ api.on('message', function(message)
             let db = client.db(dbName)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
-            let costDocuments;
+            let costsDocument = function(callback) {
+              db.collection('costs').find({}).toArray(function(err, result) {
+                console.log('reuslt', result[0].user.last_name);
+                callback(result);
+              });
+            }
+            console.log('costsDocument - ', costsDocument);
             db.collection('costs').find({}).toArray(function(err, result) {
-              console.log('reuslt', result);
+              console.log('reuslt', result[0].user.last_name);
             });
 
             db.collection('messages').find({}).toArray(function(err, result) {
@@ -137,13 +143,13 @@ api.on('message', function(message)
 api.on('inline.query', function(message)
 {
     // Received inline query
-    console.log(message);
+    console.log('message inline result', message);
 });
 
 api.on('inline.result', function(message)
 {
     // Received chosen inline result
-    console.log(message);
+    console.log('message inline result', message);
 });
 
 api.on('inline.callback.query', function(message)
@@ -246,7 +252,7 @@ api.on('inline.callback.query', function(message)
 api.on('edited.message', function(message)
 {
     // Message that was edited
-    console.log(message);
+    console.log('edited message', message);
 });
 
 api.on('update', function(message)
