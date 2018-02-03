@@ -223,7 +223,7 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('messages').find({user.last_name: 'Ladyzhenskiy'})toArray(function(err, result) {
+                      db.collection('messages').find({last_name: 'Ladyzhenskiy'})toArray(function(err, result) {
                         console.log('result filtered', result);
                         client.close();
                       })
