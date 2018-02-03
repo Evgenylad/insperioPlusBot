@@ -140,23 +140,23 @@ api.on('inline.callback.query', function(message)
             console.log('message 2', message);
             obj.paymentRecipient = message.text;
             console.log('obj2 - ', obj);
-          });
 
-          api.sendMessage({
-            chat_id: chatId,
-            text: 'Укажите сумму в формате "0000.00". \nЗнак + или - указывать НЕ нужно. ',
-            parse_mode: 'HTML'
-          })
-          .then(function(message) {
-            console.log(amount);
-            let amount = parseFloat(message.text);
-            obj.amount = amount;
-            console.log('obj3 - ', obj);
+            api.sendMessage({
+              chat_id: chatId,
+              text: 'Укажите сумму в формате "0000.00". \nЗнак + или - указывать НЕ нужно. ',
+              parse_mode: 'HTML'
+            })
+            .then(function(message) {
+              console.log(amount);
+              let amount = parseFloat(message.text);
+              obj.amount = amount;
+              console.log('obj3 - ', obj);
+            });
+            .catch(function(err) {
+              console.log(err);
+            });
           });
-          .catch(function(err) {
-            console.log(err);
-          })
-        })
+        });
         .catch(function(err) {
             console.log(err);
         });
