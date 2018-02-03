@@ -170,11 +170,19 @@ api.on('inline.callback.query', function(message)
                 console.log('obj3 - ', obj);
               })
 
-              api.sendMessage('message', function(message) {
+              api.sendMessage({
                 chat_id: chatId,
                 text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
                 parse_mode: 'HTML',
                 reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
+              })
+              .then(function(message) {
+                api.on('inline.callback.query', function(message) {
+                  console.log(message.text);
+                  let amount = parseFloat(message.text);
+                  obj.amount = amount;
+                  console.log('obj3 - ', obj);
+                })
               })
             })
             .catch(function(err) {
