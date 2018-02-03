@@ -112,45 +112,38 @@ api.on('inline.callback.query', function(message)
     let chatId = message.message.chat.id
     console.log('callback ', message.message.chat.id);
     console.log(message.message);
-    MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
-      let db = client.db(dbName)
-      if (err) throw err;
-      db.collection('messages').find({}).toArray(function(err, result) {
-        console.log(result);
-        console.log(result[0].user.id);
-        return result
-      })
-      .then(function(result) {
-        console.log(result);
-      });
-    });
-/*
-    if (message.data === 'Income') {
+    // MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+    //   let db = client.db(dbName)
+    //   if (err) throw err;
+    //   db.collection('messages').find({}).toArray(function(err, result) {
+    //     console.log(result);
+    //     console.log(result[0].user.id);
+    //     return result
+    //   })
+    //   .then(function(result) {
+    //     console.log(result);
+    //   });
+    // });
+    let obj = {};
+
+    if (message.data === 'Income' || message.data === 'Cost') {
       api.sendMessage({
         chat_id: chatId,
-        text: 'От кого получили? \nУкажите контрагента.',
+        text: 'Укажите контрагента.',
         parse_mode: 'HTML'
         })
         .then(function(message) {
-          console.log(message);
+          console.log('message', message);
+          api.on('message', function(message) {
+            console.log('message 2', message);
+            obj.paymentRecipient = message.text
+          }
         })
         .catch(function(err) {
             console.log(err);
         });
-    } else if (message.data === 'Cost') {
-      api.sendMessage({
-        chat_id: chatId,
-        text: 'Кому заплатили? \nУкажите контрагента.',
-        parse_mode: 'HTML'
-        })
-        .then(function(message) {
-          console.log(message);
-        })
-        .catch(function(err) {
-            console.log(err);
-        });
+      }
     }
-    */
 });
 
 api.on('edited.message', function(message)
