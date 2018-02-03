@@ -111,9 +111,9 @@ api.on('inline.callback.query', function(message)
     // New incoming callback query
     let chatId = message.message.chat.id
     console.log('callback ', message.message.chat.id);
+    console.log(message.message);
     MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
       let db = client.db(dbName)
-      console.log(db);
       if (err) throw err;
       db.collection('messages').find({}).toArray(function(err, result) {
         console.log(result);
