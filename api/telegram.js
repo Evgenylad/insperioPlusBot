@@ -85,7 +85,7 @@ api.on('message', function(message)
               callback();
             });
 
-            db.collection('costs').find({}).toArray(function(err, result) {
+            db.collection('messages').find({}).toArray(function(err, result) {
               variableToStoreData2 = result;
               callback();
             });
