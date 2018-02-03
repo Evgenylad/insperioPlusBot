@@ -136,7 +136,8 @@ api.on('inline.callback.query', function(message)
           console.log('message', message);
           api.on('message', function(message) {
             console.log('message 2', message);
-            obj.paymentRecipient = message.text
+            obj.paymentRecipient = message.text;
+            console.log(obj);
           });
         })
         .catch(function(err) {
