@@ -116,7 +116,10 @@ api.on('inline.callback.query', function(message)
       if (err) throw err;
       db.collection('messages').find({}).toArray(function(err, result) {
         console.log(result[0].user.id);
-        client.close();
+        return result
+      })
+      then(function(result) {
+        console.log(result);
       });
     });
 /*
