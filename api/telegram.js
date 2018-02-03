@@ -81,25 +81,21 @@ api.on('message', function(message)
             let variableToStoreData1;
             let variableToStoreData2;
             db.collection('costs').find({}).toArray(function(err, result) {
-              console.log('reuslt', result[0].user.last_name);
               variableToStoreData1 = result;
               callback();
             });
 
             db.collection('costs').find({}).toArray(function(err, result) {
-              console.log('reuslt', result[0].user.last_name);
               variableToStoreData2 = result;
               callback();
             });
 
             function callback() {
-               console.log(variableToStoreData1) // now it's not undefined
-               console.log(variableToStoreData2) // now it's not undefined
+               console.log('variableToStoreData1 - ', variableToStoreData1) // now it's not undefined
+               console.log('variableToStoreData2 - ', variableToStoreData2) // now it's not undefined
             }
 
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log('result message', result);
-              console.log('user', user);
 
               if (err) throw err;
               if (!result) {
