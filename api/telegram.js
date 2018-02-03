@@ -152,7 +152,7 @@ api.on('inline.callback.query', function(message)
               let amount = parseFloat(message.text);
               obj.amount = amount;
               console.log('obj3 - ', obj);
-            });
+            })
             .catch(function(err) {
               console.log(err);
             });
