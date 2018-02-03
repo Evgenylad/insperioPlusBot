@@ -142,7 +142,6 @@ api.on('inline.callback.query', function(message)
         .catch(function(err) {
             console.log(err);
         });
-      }
     }
 });
 
