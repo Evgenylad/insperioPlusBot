@@ -78,10 +78,11 @@ api.on('message', function(message)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
             let costDocuments;
-             db.collection('costs').find({}).toArray(function(err, result) {
+            db.collection('costs').find({}).toArray(function(err, result) {
+
+            })
+            .then(function(result) {
               console.log(result);
-              costDocuments = result
-              return costDocuments;
             });
             console.log('costDocuments ', costDocuments);
 
