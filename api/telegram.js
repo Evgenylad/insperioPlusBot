@@ -81,6 +81,7 @@ api.on('message', function(message)
              db.collection('costs').find({}).toArray(function(err, result) {
               console.log(result);
               costDocuments = result
+              return costDocuments;
             });
             console.log('costDocuments ', costDocuments);
 
