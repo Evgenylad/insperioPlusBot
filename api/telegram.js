@@ -150,7 +150,7 @@ api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
     let chatId = message.message.chat.id
-    let user = message.message.from;
+    let user = message.message.chat;
     console.log('user', user);
     console.log('callback ', message.message.chat.id);
     console.log(message.message);
