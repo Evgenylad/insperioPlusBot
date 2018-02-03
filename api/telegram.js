@@ -182,12 +182,12 @@ api.on('inline.callback.query', function(message)
               MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
                 let db = client.db(dbName)
                 db.collection('costs').find({}).toArray(function(err, result) {
-                  userInCosts = result[0].user;
+                  userInCosts = result[0];
                   client.close();
                 });
 
                 db.collection('messages').find({}).toArray(function(err, result) {
-                  userInMessages = result[0].user;
+                  userInMessages = result[0];
                   callback();
                   client.close();
                 });
