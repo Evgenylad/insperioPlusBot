@@ -77,11 +77,13 @@ api.on('message', function(message)
             let db = client.db(dbName)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
-            let costDocuments = db.collection('costs').find({}).toArray(function(err, result) {
-              return result;
+            let costDocuments;
+             db.collection('costs').find({}).toArray(function(err, result) {
+              console.log(result);
+              costDocuments = result
             });
             console.log(costDocuments);
-            
+
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log(result);
               if (err) throw err;
