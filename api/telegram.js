@@ -118,7 +118,7 @@ api.on('inline.callback.query', function(message)
         console.log(result[0].user.id);
         return result
       })
-      then(function(result) {
+      .then(function(result) {
         console.log(result);
       });
     });
