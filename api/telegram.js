@@ -147,9 +147,9 @@ api.on('inline.result', function(message)
 api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
-    let chatId = message.message.chat.id
+    let chatId = message.message.chat.id;
     let user = message.message.chat;
-    console.log('user', user);
+    console.log('user', chatId);
 
     // MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     //   let db = client.db(dbName)
@@ -166,7 +166,7 @@ api.on('inline.callback.query', function(message)
     let obj = {};
 
     if (message.data === 'Income' || message.data === 'Cost') {
-      obj = {user: user, cashFlowType: message.data};
+      obj = {userId: chatId, cashFlowType: message.data};
       // Asking paymentRecipient message code start
       api.sendMessage({
         chat_id: chatId,
@@ -222,7 +222,7 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('messages').find({last_name: 'Ladyzhenskiy'}).toArray(function(err, result) {
+                      db.collection('messages').find({userId: chatId}).toArray(function(err, result) {
                         console.log('result filtered', result);
                         client.close();
                       })
