@@ -153,46 +153,50 @@ api.on('inline.callback.query', function(message)
           console.log('message', message);
           console.log('obj1 - ', obj);
           api.on('message', function(message) {
-            console.log('message 2', message);
-            obj.paymentRecipient = message.text;
-            console.log('obj2 - ', obj);
-            // Asking amount message code start
-            api.sendMessage({
-              chat_id: chatId,
-              text: 'Укажите сумму💸 в формате "0000.00". \nЗнак ➕ или ➖ указывать НЕ нужно. ',
-              parse_mode: 'HTML'
-            })
-            .then(function(message) {
-              api.on('message', function(message) {
-                console.log(message.text);
-                let amount = parseFloat(message.text);
-                obj.amount = amount;
-                console.log('obj3 - ', obj);
-                // Asking paymentType message code start
-                api.sendMessage({
-                  chat_id: chatId,
-                  text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
-                  parse_mode: 'HTML',
-                  reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
-                })
-                .then(function(message) {
-                  api.on('inline.callback.query', function(message) {
+            if (message.text !== '/start') {
+              console.log('message 2', message);
+              obj.paymentRecipient = message.text;
+              console.log('obj2 - ', obj);
+              // Asking paymentType message code start
+              api.sendMessage({
+                chat_id: chatId,
+                text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
+                parse_mode: 'HTML',
+                reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
+              })
+              .then(function(message) {
+                api.on('inline.callback.query', function(message) {
+                  if (message.data === 'Cash' || message.data === 'Transfer') {
                     console.log(message.text);
                     let amount = parseFloat(message.text);
                     obj.amount = amount;
                     console.log('obj3 - ', obj);
-                  })
-                })
-                .catch(function(err) {
-                  console.log(err);
+                    // Asking amount message code start
+                    api.sendMessage({
+                      chat_id: chatId,
+                      text: 'Укажите сумму💸 в формате "0000.00". \nЗнак ➕ или ➖ указывать НЕ нужно. ',
+                      parse_mode: 'HTML'
+                    })
+                    .then(function(message) {
+                      api.on('message', function(message) {
+                        console.log(message.text);
+                        let amount = parseFloat(message.text);
+                        obj.amount = amount;
+                        console.log('obj3 - ', obj);
+                      })
+                    })
+                    .catch(function(err) {
+                      console.log(err);
+                    });
+                    // Asking amount message code end
+                  }
                 });
-                // Asking paymentType message code end
               })
-            })
-            .catch(function(err) {
-              console.log(err);
-            });
-            // Asking amount message code end
+              .catch(function(err) {
+                console.log(err);
+              });
+              // Asking paymentType message code end
+            }
           });
         })
         .catch(function(err) {
