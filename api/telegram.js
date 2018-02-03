@@ -106,6 +106,26 @@ api.on('message', function(message)
 
         });
     }
+  } else {
+    // // Asking amount message code start
+    // api.sendMessage({
+    //   chat_id: chatId,
+    //   text: 'Укажите сумму💸 в формате "0000.00". \nЗнак ➕ или ➖ указывать НЕ нужно. ',
+    //   parse_mode: 'HTML'
+    // })
+    // .then(function(message) {
+    //   api.on('message', function(message) {
+    //     console.log(message.text);
+    //     let amount = parseFloat(message.text);
+    //     obj.amount = amount;
+    //     console.log('obj3 - ', obj);
+    //
+    //   })
+    // })
+    // .catch(function(err) {
+    //   console.log(err);
+    // });
+    // // Asking amount message code end
   }
 });
 
@@ -168,27 +188,36 @@ api.on('inline.callback.query', function(message)
                 api.on('inline.callback.query', function(message) {
                   if (message.data === 'Cash' || message.data === 'Transfer') {
                     console.log(message.text);
-                    let amount = parseFloat(message.text);
-                    obj.amount = amount;
+                    obj.paymentType = message.text;
                     console.log('obj3 - ', obj);
-                    // Asking amount message code start
-                    api.sendMessage({
-                      chat_id: chatId,
-                      text: 'Укажите сумму💸 в формате "0000.00". \nЗнак ➕ или ➖ указывать НЕ нужно. ',
-                      parse_mode: 'HTML'
-                    })
-                    .then(function(message) {
-                      api.on('message', function(message) {
-                        console.log(message.text);
-                        let amount = parseFloat(message.text);
-                        obj.amount = amount;
-                        console.log('obj3 - ', obj);
-                      })
-                    })
-                    .catch(function(err) {
-                      console.log(err);
+
+                    // Start of saving payment details to DB. Part 1.
+                    MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+                      let db = client.db(dbName)
+                      console.log(' Объект до сохранения в базу расходов первый раз - ', obj);
+                      if (err) throw err;
+
+                      db.collection('costs').find({}).toArray(function(err, result) {
+                        console.log(result);
+                        if (err) throw err;
+                        if (!result) {
+                          db.collection('costs').insertOne(obj, function(err, result) {
+                            if (err) throw err;
+                            console.log(result);
+                            client.close();
+                          });
+                        } else {
+                          db.collection('messages').drop();
+                          db.collection('costs').insertOne(obj, function(err, result) {
+                            if (err) throw err;
+                            console.log(result);
+                            client.close();
+                          });
+                        }
+                        client.close();
+                      });
                     });
-                    // Asking amount message code end
+                    // End of saving payment details to DB. Part 2.
                   }
                 });
               })
