@@ -39,6 +39,21 @@ const welcomeToChatMessageAttachedButtons = {
   ]
 };
 
+const cashOrTransferMessageAttachedButtons = {
+  inline_keyboard: [
+    [
+      {
+        text: 'Наличные',
+        callback_data: 'Cash'
+      },
+      {
+        text: 'Безнал',
+        callback_data: 'Transfer'
+      }
+    ]
+  ]
+};
+
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 api.on('message', function(message)
 {
@@ -144,14 +159,23 @@ api.on('inline.callback.query', function(message)
             // Asking amount message code start
             api.sendMessage({
               chat_id: chatId,
-              text: 'Укажите сумму в формате "0000.00". \nЗнак + или - указывать НЕ нужно. ',
+              text: 'Укажите сумму💸 в формате "0000.00". \nЗнак ➕ или ➖ указывать НЕ нужно. ',
               parse_mode: 'HTML'
             })
             .then(function(message) {
-              console.log(amount);
-              let amount = parseFloat(message.text);
-              obj.amount = amount;
-              console.log('obj3 - ', obj);
+              api.on('message', function(message) {
+                console.log(message.text);
+                let amount = parseFloat(message.text);
+                obj.amount = amount;
+                console.log('obj3 - ', obj);
+              })
+
+              api.sendMessage('message', function(message) {
+                chat_id: chatId,
+                text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
+                parse_mode: 'HTML',
+                reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
+              })
             })
             .catch(function(err) {
               console.log(err);
