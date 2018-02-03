@@ -187,8 +187,8 @@ api.on('inline.callback.query', function(message)
               .then(function(message) {
                 api.on('inline.callback.query', function(message) {
                   if (message.data === 'Cash' || message.data === 'Transfer') {
-                    console.log(message.text);
-                    obj.paymentType = message.text;
+                    console.log(message.data);
+                    obj.paymentType = message.data;
                     console.log('obj3 - ', obj);
 
                     // Start of saving payment details to DB. Part 1.
