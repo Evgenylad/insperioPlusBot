@@ -83,7 +83,7 @@ api.on('message', function(message)
             });
 
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log('result message', result);
+              console.log('result message', result.user.last_name;
               if (err) throw err;
               if (!result) {
                 db.collection('messages').insertOne(myQuery, function(err, result) {
