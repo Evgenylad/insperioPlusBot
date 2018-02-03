@@ -168,21 +168,25 @@ api.on('inline.callback.query', function(message)
                 let amount = parseFloat(message.text);
                 obj.amount = amount;
                 console.log('obj3 - ', obj);
-              })
-
-              api.sendMessage({
-                chat_id: chatId,
-                text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
-                parse_mode: 'HTML',
-                reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
-              })
-              .then(function(message) {
-                api.on('inline.callback.query', function(message) {
-                  console.log(message.text);
-                  let amount = parseFloat(message.text);
-                  obj.amount = amount;
-                  console.log('obj3 - ', obj);
+                // Asking paymentType message code start
+                api.sendMessage({
+                  chat_id: chatId,
+                  text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
+                  parse_mode: 'HTML',
+                  reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
                 })
+                .then(function(message) {
+                  api.on('inline.callback.query', function(message) {
+                    console.log(message.text);
+                    let amount = parseFloat(message.text);
+                    obj.amount = amount;
+                    console.log('obj3 - ', obj);
+                  })
+                })
+                .catch(function(err) {
+                  console.log(err);
+                });
+                // Asking paymentType message code end
               })
             })
             .catch(function(err) {
