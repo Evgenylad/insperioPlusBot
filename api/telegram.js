@@ -79,14 +79,11 @@ api.on('message', function(message)
             let myQuery = {user: user, lastMessage: lastUserMessage};
             let costDocuments;
             db.collection('costs').find({}).toArray(function(err, result) {
-              return result;
-            }).then(function(result) {
-              console.log(result);
+              console.log('reuslt', result);
             });
-            console.log('costDocuments ', costDocuments);
 
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log(result);
+              console.log('result message', result);
               if (err) throw err;
               if (!result) {
                 db.collection('messages').insertOne(myQuery, function(err, result) {
@@ -153,6 +150,8 @@ api.on('inline.callback.query', function(message)
 {
     // New incoming callback query
     let chatId = message.message.chat.id
+    let user = message.message.from;
+    console.log('user', user);
     console.log('callback ', message.message.chat.id);
     console.log(message.message);
     // MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
@@ -170,7 +169,7 @@ api.on('inline.callback.query', function(message)
     let obj = {};
 
     if (message.data === 'Income' || message.data === 'Cost') {
-      obj = {cashFlowType: message.data}
+      obj = {user: user, cashFlowType: message.data};
       // Asking paymentRecipient message code start
       api.sendMessage({
         chat_id: chatId,
