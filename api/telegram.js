@@ -128,6 +128,7 @@ api.on('inline.callback.query', function(message)
 
     if (message.data === 'Income' || message.data === 'Cost') {
       obj = {cashFlowType: message.data}
+      // Asking paymentRecipient message code start
       api.sendMessage({
         chat_id: chatId,
         text: 'Укажите контрагента.',
@@ -140,7 +141,7 @@ api.on('inline.callback.query', function(message)
             console.log('message 2', message);
             obj.paymentRecipient = message.text;
             console.log('obj2 - ', obj);
-
+            // Asking amount message code start
             api.sendMessage({
               chat_id: chatId,
               text: 'Укажите сумму в формате "0000.00". \nЗнак + или - указывать НЕ нужно. ',
@@ -155,11 +156,13 @@ api.on('inline.callback.query', function(message)
             .catch(function(err) {
               console.log(err);
             });
+            // Asking amount message code end
           });
-        });
+        })
         .catch(function(err) {
             console.log(err);
         });
+      // Asking paymentRecipient message code end
     }
 });
 
