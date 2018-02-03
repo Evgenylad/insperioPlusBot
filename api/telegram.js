@@ -116,6 +116,7 @@ api.on('inline.callback.query', function(message)
       console.log(db);
       if (err) throw err;
       db.collection('messages').find({}).toArray(function(err, result) {
+        console.log(result);
         console.log(result[0].user.id);
         return result
       })
