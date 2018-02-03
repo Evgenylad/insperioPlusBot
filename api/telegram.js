@@ -179,19 +179,24 @@ api.on('inline.callback.query', function(message)
           console.log('obj1 - ', obj);
           api.on('message', function(message) {
             if (message.text !== '/start') {
-              db.collection('costs').find({}).toArray(function(err, result) {
-                userInCosts = result[0].user;
-              });
+              MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+                let db = client.db(dbName)
+                db.collection('costs').find({}).toArray(function(err, result) {
+                  userInCosts = result[0].user;
+                  client.close();
+                });
 
-              db.collection('messages').find({}).toArray(function(err, result) {
-                userInMessages = result[0].user;
-                callback();
-              });
+                db.collection('messages').find({}).toArray(function(err, result) {
+                  userInMessages = result[0].user;
+                  callback();
+                  client.close();
+                });
 
-              function callback() {
-                 console.log('userInMessages - ', userInMessages)
-                 console.log('userInCosts - ', userInCosts)
-              }
+                function callback() {
+                   console.log('userInMessages - ', userInMessages)
+                   console.log('userInCosts - ', userInCosts)
+                }
+              });
               console.log('message 2', message);
               obj.paymentRecipient = message.text;
               console.log('obj2 - ', obj);
