@@ -212,7 +212,7 @@ api.on('inline.callback.query', function(message)
                           db.collection('costs').drop();
                           db.collection('costs').insertOne(obj, function(err, result) {
                             if (err) throw err;
-                            console.log(result);
+                            console.log('data in db', result);
                             client.close();
                           });
                         }
