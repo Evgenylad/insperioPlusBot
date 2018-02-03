@@ -84,13 +84,15 @@ api.on('message', function(message)
 
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log('result message', result);
+              console.log('user', user);
+              
               if (err) throw err;
               if (!result) {
                 db.collection('messages').insertOne(myQuery, function(err, result) {
                   if (err) throw err;
                   client.close();
                 });
-              } else {
+              } else if (user === result){
                 // db.collection('messages').drop();
                 db.collection('messages').insertOne(myQuery, function(err, result) {
                   if (err) throw err;
