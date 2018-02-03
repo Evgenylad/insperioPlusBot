@@ -201,12 +201,14 @@ api.on('inline.callback.query', function(message)
                         console.log('записи сохраненные в базе на данный момент', result);
                         if (err) throw err;
                         if (!result) {
+                          console.log('!result');
                           db.collection('costs').insertOne(obj, function(err, result) {
                             if (err) throw err;
-                            console.log(result);
+                            console.log('result ', result);
                             client.close();
                           });
                         } else {
+                          console.log('has result');
                           db.collection('costs').drop();
                           db.collection('costs').insertOne(obj, function(err, result) {
                             if (err) throw err;
