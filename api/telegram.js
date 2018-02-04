@@ -57,10 +57,12 @@ const cashOrTransferMessageAttachedButtons = {
 };
 
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
+
+// Helper function to write one doc to collection
 let insertOneToAnyDb = (collectionName, query, db) => {
   db.collection(collectionName).insertOne(query, function(err, result) {
     if (err) throw err;
-    console.log(result);
+    console.log('query have been inserted to db', query);
   });
 };
 
@@ -208,23 +210,16 @@ api.on('inline.callback.query', function(message)
                         if (err) throw err;
                         if (!result) {
                           console.log('!result');
-                          db.collection('costs').insertOne(obj, function(err, result) {
-                            if (err) throw err;
-                            console.log('result ', result);
-                            client.close();
-                          });
+                          insertOneToAnyDb('costs', obj);
                         } else {
                           console.log('has result');
                           db.collection('costs').drop();
-                          db.collection('costs').insertOne(obj, function(err, result) {
-                            if (err) throw err;
-                            client.close();
-                          });
+                          insertOneToAnyDb('costs', obj);
                         }
                         client.close();
                       });
 
-                      db.collection('messages').find({userId: chatId}).toArray(function(err, result) {
+                      db.collection('messages').find({$eq: {userId: chatId}}).toArray(function(err, result) {
                         console.log('result filtered', result);
                         client.close();
                       })
