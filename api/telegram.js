@@ -217,8 +217,10 @@ api.on('inline.callback.query', function(message)
                         console.log('filtered result 1', result);
                       });
 
-                      db.collection('messages').find({}).toArray(function(err, result) {
-                        console.log('filtered result 2', result);
+                      db.collection('messages').findOne({
+                        lastMessage: '/start'
+                      }, function(err, result) {
+                        console.log('filtered result 1', result);
                       });
                     });
                     // End of saving payment details to DB. Part 2.
