@@ -210,21 +210,21 @@ api.on('inline.callback.query', function(message)
                         }
                         client.close();
                       });
-
-                      db.collection('costs').findOne({
-                        paymentRecipient: 'Плвр'
-                      }, function(err, result) {
-                        console.log('filtered result 1', result);
-                      });
-
-                      db.collection('messages').findOne({
-                        lastMessage: '/start'
-                      }, function(err, result) {
-                        console.log('filtered result 1', result);
-                      });
                     });
                     // End of saving payment details to DB. Part 2.
                   }
+                })
+                .then(function(result) {
+                  console.log(result);
+                  db.collection('messages').find({}).toArray(function(err, result) {
+                    console.log('filtered result from messages', result);
+                  });
+                  
+                  db.collection('messages').findOne({
+                    lastMessage: '/start'
+                  }, function(err, result) {
+                    console.log('filtered result from messages', result);
+                  });
                 });
               })
               .catch(function(err) {
