@@ -89,7 +89,7 @@ api.on('message', function(message)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
-
+              console.log('user', user);
               if (err) throw err;
               if (!result) {
                 console.log('result1', result);
@@ -98,7 +98,7 @@ api.on('message', function(message)
                   console.log('result of wrighting', result);
                   client.close();
                 });
-              } else if (user === result){
+              } else if (user === result[0].user){
                 console.log('result2', result);
                 db.collection('messages').drop();
                 db.collection('messages').insertOne(myQuery, function(err, result) {
