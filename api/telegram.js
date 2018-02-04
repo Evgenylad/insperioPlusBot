@@ -210,11 +210,11 @@ api.on('inline.callback.query', function(message)
                         if (err) throw err;
                         if (!result) {
                           console.log('!result');
-                          insertOneToAnyDb('costs', obj);
+                          insertOneToAnyDb('costs', obj, db);
                         } else {
                           console.log('has result');
                           db.collection('costs').drop();
-                          insertOneToAnyDb('costs', obj);
+                          insertOneToAnyDb('costs', obj, db);
                         }
                         client.close();
                       });
