@@ -71,14 +71,23 @@ let callToMongoDb = (query, callback) => {
   MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     let db = client.db(dbName)
     if (err) throw err;
-    findElement(db);
+    console.log(query);
+    console.log(callback);
+    callback();
     client.close();
   });
 };
 
-// Helper function to find element in MongoDb
-let findElement = (db) => {
+// Helper function to retrieve all elements from MongoDb
+let getAllElements = (db) => {
   db.collection('messages').find({}).toArray(function(err, result) {
+    console.log('result in callback functin', result);
+  });
+};
+
+// Helper function to retrieve element from MongoDb. Elem should has Object type.
+let findElement = (db, elem) => {
+  db.collection('messages').find(elem, function(err, result) {
     console.log('result in callback functin', result);
   });
 };
@@ -130,7 +139,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb();
+    callToMongoDb('query', findElement);
   }
 });
 
