@@ -216,10 +216,11 @@ api.on('inline.callback.query', function(message)
                       },function(err, result) {
                         console.log('filtered result 1', result);
                       });
+
                       db.collection('messages').findOne({
                         userId: 100364646
                       },function(err, result) {
-                        console.log('filtered result 1', result);
+                        console.log('filtered result 2', result);
                       });
                     });
                     // End of saving payment details to DB. Part 2.
