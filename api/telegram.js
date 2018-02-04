@@ -90,6 +90,7 @@ api.on('message', function(message)
             let myQuery = {user: user, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log('user', user);
+              console.log('user from result', result[0].user);
               if (err) throw err;
               if (!result) {
                 console.log('result1', result);
