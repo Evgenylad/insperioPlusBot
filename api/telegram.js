@@ -78,7 +78,7 @@ let callToMongoDb = (query, callback) => {
 
 // Helper function to find element in MongoDb
 let findElement = () => {
-  db.collection('messages').find({}).toArray(function(err, result) => {
+  db.collection('messages').find({}).toArray(function(err, result) {
     console.log('result in callback functin', result);
   });
 };
