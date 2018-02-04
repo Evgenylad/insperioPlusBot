@@ -99,7 +99,7 @@ api.on('message', function(message)
                   console.log('result of wrighting', result);
                   client.close();
                 });
-              } else if (user === result[0].user){
+              } else if (user === result[0].user) {
                 console.log('result2', result);
                 db.collection('messages').drop();
                 db.collection('messages').insertOne(myQuery, function(err, result) {
