@@ -213,11 +213,11 @@ api.on('inline.callback.query', function(message)
 
                       db.collection('costs').findOne({
                         paymentRecipient: 'Плвр'
-                      },function(err, result) {
+                      }, function(err, result) {
                         console.log('filtered result 1', result);
                       });
 
-                      db.collection('messages').find({}, function(err, result) {
+                      db.collection('messages').find({}).toArray(function(err, result) {
                         console.log('filtered result 2', result);
                       });
                     });
