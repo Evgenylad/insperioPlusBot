@@ -186,7 +186,7 @@ api.on('inline.callback.query', function(message)
                 api.on('inline.callback.query', function(message) {
                   if (message.data === 'Cash' || message.data === 'Transfer') {
                     console.log(message.data);
-                    messageQuery.paymentTypeClicked = true};
+                    messageQuery.paymentTypeClicked = true;
                     obj.paymentType = message.data;
                     console.log('obj3 - ', obj);
                     console.log('messageQuery3 - ', messageQuery);
