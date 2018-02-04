@@ -156,9 +156,11 @@ api.on('inline.callback.query', function(message)
     console.log('user', chatId);
 
     let obj = {};
+    let messageQuery = {};
 
     if (message.data === 'Income' || message.data === 'Cost') {
       obj = {userId: chatId, cashFlowType: message.data};
+      messageQuery = {userId: chatId, welcomeBtnClicked: true};
       // Asking paymentRecipient message code start
       api.sendMessage({
         chat_id: chatId,
@@ -184,8 +186,10 @@ api.on('inline.callback.query', function(message)
                 api.on('inline.callback.query', function(message) {
                   if (message.data === 'Cash' || message.data === 'Transfer') {
                     console.log(message.data);
+                    messageQuery.paymentTypeClicked = true};
                     obj.paymentType = message.data;
                     console.log('obj3 - ', obj);
+                    console.log('messageQuery3 - ', messageQuery);
 
                     // Start of saving payment details to DB. Part 1.
                     MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
@@ -199,18 +203,19 @@ api.on('inline.callback.query', function(message)
                         if (!result) {
                           console.log('!result');
                           insertOneToAnyDb('costs', obj, db);
+                          insertOneToAnyDb('messages', obj, db);
                         } else {
                           console.log('has result');
-                          db.collection('costs').drop();
                           insertOneToAnyDb('costs', obj, db);
+                          insertOneToAnyDb('messages', obj, db);
                         }
                         client.close();
                       });
 
-                      // db.collection('messages').findOne({$eq: {lastMessage: '/start'}}).toArray(function(err, result) {
-                      //   console.log('result filtered', result);
-                      //   client.close();
-                      // })
+                      db.collection('messages').findOne({keywords: {'$in': '/start'}}).toArray(function(err, result) {
+                        console.log('result filtered', result);
+                        client.close();
+                      })
                     });
                     // End of saving payment details to DB. Part 2.
                   }
