@@ -211,9 +211,7 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('costs').find({}, function(err, result) {
-                        console.log('filtered result 1', result);
-                      }).toArray(function(err, result) {
+                      db.collection('costs').find({}).toArray(function(err, result) {
                         console.log('filtered result 1', result);
                       });
 
