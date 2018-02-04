@@ -73,7 +73,7 @@ let callToMongoDb = (query, callback) => {
     if (err) throw err;
     console.log(query);
     console.log(callback);
-    callback();
+    callback(db);
     client.close();
   });
 };
