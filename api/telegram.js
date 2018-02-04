@@ -217,9 +217,7 @@ api.on('inline.callback.query', function(message)
                         console.log('filtered result 1', result);
                       });
 
-                      db.collection('messages').findOne({
-                        userId: 100364646
-                      },function(err, result) {
+                      db.collection('messages').find({}, function(err, result) {
                         console.log('filtered result 2', result);
                       });
                     });
