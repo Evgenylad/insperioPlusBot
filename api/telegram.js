@@ -211,7 +211,13 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('costs').find({}).toArray(function(err, result) {
+                      db.collection('costs').find({
+                        _id: 5a76ddb9db1fbc0235ca692c,
+                        userId: 100364646,
+                        cashFlowType: 'Cost',
+                        paymentRecipient: 'Плвр',
+                        paymentType: 'Cash'
+                      }).toArray(function(err, result) {
                         console.log('filtered result 1', result);
                       });
                     });
