@@ -207,10 +207,10 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('messages').findOne({$eq: {lastMessage: '/start'}}).toArray(function(err, result) {
-                        console.log('result filtered', result);
-                        client.close();
-                      })
+                      // db.collection('messages').findOne({$eq: {lastMessage: '/start'}}).toArray(function(err, result) {
+                      //   console.log('result filtered', result);
+                      //   client.close();
+                      // })
                     });
                     // End of saving payment details to DB. Part 2.
                   }
