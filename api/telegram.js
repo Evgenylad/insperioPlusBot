@@ -93,7 +93,7 @@ api.on('message', function(message)
               console.log('user from result', result[0].user);
               if (err) throw err;
 
-              if (user === result[0].user) {
+              if (user.id === result[0].user.id) {
                 console.log('result1', result);
                 db.collection('messages').insertOne(myQuery, function(err, result) {
                   if (err) throw err;
