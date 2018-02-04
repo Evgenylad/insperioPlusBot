@@ -58,7 +58,9 @@ const cashOrTransferMessageAttachedButtons = {
 
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 function insertOneToAnyDb(collectionName, query, db) {
-  console.log('function called');
+  console.log(db);
+  console.log('collectionName ', collectionName);
+  console.log('query - ', query);
   db.collection(collectionName).insertOne(query, function(err, result) {
     if (err) throw err;
     console.log('result of wrighting', result);
