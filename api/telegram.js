@@ -93,13 +93,11 @@ api.on('message', function(message)
               console.log('user from result', result[0].user);
               if (err) throw err;
 
-              if (user.id === result[0].user.id) {
-                console.log('result1', result);
-                db.collection('messages').insertOne(myQuery, function(err, result) {
-                  if (err) throw err;
-                  console.log('result of wrighting', result);
-                  client.close();
-                });
+              if (!result) {
+                insertOneToAnyDb('messages', myQuery);
+              } else if (user.id === result[0].user.id) {
+                db.collection('messages').drop();
+                insertOneToAnyDb('messages', myQuery);
               }
               client.close();
             });
