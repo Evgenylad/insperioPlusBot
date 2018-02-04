@@ -213,7 +213,7 @@ api.on('inline.callback.query', function(message)
 
                       db.collection('costs').findOne({
                         userId: 100364646
-                      }).toArray(function(err, result) {
+                      },function(err, result) {
                         console.log('filtered result 1', result);
                       });
                     });
