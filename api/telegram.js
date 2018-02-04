@@ -57,7 +57,7 @@ const cashOrTransferMessageAttachedButtons = {
 };
 
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
-function insertOneToAnyDb(collectionName, query) {
+function insertOneToAnyDb(collectionName, query, db) {
   console.log('function called');
   db.collection(collectionName).insertOne(query, function(err, result) {
     if (err) throw err;
@@ -94,7 +94,7 @@ api.on('message', function(message)
               if (err) throw err;
 
               if (!result) {
-                insertOneToAnyDb('messages', myQuery);
+                insertOneToAnyDb('messages', myQuery, db);
               } else if (user.id === result[0].user.id) {
                 db.collection('messages').drop();
                 insertOneToAnyDb('messages', myQuery);
