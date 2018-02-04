@@ -89,8 +89,8 @@ api.on('message', function(message)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log('user', user);
-              console.log('user from result', result[0].user);
+              console.log('user', typeof user);
+              console.log('user from result', typeof result[0].user);
               if (err) throw err;
 
               if (user === result[0].user) {
@@ -100,7 +100,8 @@ api.on('message', function(message)
                   console.log('result of wrighting', result);
                   client.close();
                 });
-              } 
+              }
+              client.close();
             });
           });
         });
