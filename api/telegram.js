@@ -214,14 +214,6 @@ api.on('inline.callback.query', function(message)
                       db.collection('costs').find({}).toArray(function(err, result) {
                         console.log('filtered result 1', result);
                       });
-
-                      db.collection('costs').find({'lastMessage': '/start'}, function(err, result) {
-                        console.log('filtered result 2', result);
-                      }).toArray(function(err, result) {
-                        console.log('filtered result 2', result);
-                      });
-
-                      lastMessage: '/start'
                     });
                     // End of saving payment details to DB. Part 2.
                   }
