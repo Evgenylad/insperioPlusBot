@@ -71,7 +71,7 @@ let callToMongoDb = (query, callback) => {
   MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     let db = client.db(dbName)
     if (err) throw err;
-    callback();
+    findElement();
     client.close();
   });
 };
@@ -130,7 +130,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb(findElement);
+    callToMongoDb(callback);
   }
 });
 
