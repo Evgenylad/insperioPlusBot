@@ -57,7 +57,7 @@ const cashOrTransferMessageAttachedButtons = {
 };
 
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
-let insertOneToAnyDb = (collectionName, query) => {
+let insertOneToAnyDb = function(collectionName, query) {
   console.log('function called');
   db.collection(collectionName).insertOne(query, function(err, result) {
     if (err) throw err;
