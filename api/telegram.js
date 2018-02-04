@@ -76,6 +76,13 @@ let callToMongoDb = (query, callback) => {
   });
 };
 
+// Helper function to find element in MongoDb
+let findElement = () => {
+  db.collection('messages').find({}).toArray(function(err, result) => {
+    console.log('result in callback functin', result);
+  });
+};
+
 api.on('message', function(message)
 {
     // Received text message
@@ -123,19 +130,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb(db.collection('messages').find({}).toArray(function(err, result) {
-      console.log('messages in db rrrr', typeof result[0].lastMessage);
-        if (err) throw err;
-
-        if (!result) {
-          insertOneToAnyDb('messages', myQuery, db);
-        } else if (user.id === result[0].user.id) {
-          //db.collection('messages').drop();
-          insertOneToAnyDb('messages', myQuery, db);
-        }
-        client.close();
-      });
-    )
+    callToMongoDb(findElement);
   }
 });
 
