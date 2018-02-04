@@ -57,6 +57,13 @@ const cashOrTransferMessageAttachedButtons = {
 };
 
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
+let insertOneToAnyDb = (collectionName, query) => {
+  db.collection(collectionName).insertOne(query, function(err, result) {
+    if (err) throw err;
+    client.close();
+  });
+};
+
 api.on('message', function(message)
 {
     // Received text message
@@ -84,16 +91,10 @@ api.on('message', function(message)
 
               if (err) throw err;
               if (!result) {
-                db.collection('messages').insertOne(myQuery, function(err, result) {
-                  if (err) throw err;
-                  client.close();
-                });
+                insertOneToAnyDb('messages', myQuery);
               } else if (user === result){
                 db.collection('messages').drop();
-                db.collection('messages').insertOne(myQuery, function(err, result) {
-                  if (err) throw err;
-                  client.close();
-                });
+                insertOneToAnyDb('messages', myQuery);
               }
               client.close();
             });
