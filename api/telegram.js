@@ -66,6 +66,16 @@ let insertOneToAnyDb = (collectionName, query, db) => {
   });
 };
 
+// Helper function to call MongoDb
+let callToMongoDb = (query, callback) => {
+  MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+    let db = client.db(dbName)
+    if (err) throw err;
+    callback();
+    client.close();
+  });
+};
+
 api.on('message', function(message)
 {
     // Received text message
@@ -113,25 +123,19 @@ api.on('message', function(message)
         });
     }
   } else {
-    // // Asking amount message code start
-    // api.sendMessage({
-    //   chat_id: chatId,
-    //   text: 'Укажите сумму💸 в формате "0000.00". \nЗнак ➕ или ➖ указывать НЕ нужно. ',
-    //   parse_mode: 'HTML'
-    // })
-    // .then(function(message) {
-    //   api.on('message', function(message) {
-    //     console.log(message.text);
-    //     let amount = parseFloat(message.text);
-    //     obj.amount = amount;
-    //     console.log('obj3 - ', obj);
-    //
-    //   })
-    // })
-    // .catch(function(err) {
-    //   console.log(err);
-    // });
-    // // Asking amount message code end
+    callToMongoDb(db.collection('messages').find({}).toArray(function(err, result) {
+      console.log('messages in db rrrr', typeof result[0].lastMessage);
+        if (err) throw err;
+
+        if (!result) {
+          insertOneToAnyDb('messages', myQuery, db);
+        } else if (user.id === result[0].user.id) {
+          //db.collection('messages').drop();
+          insertOneToAnyDb('messages', myQuery, db);
+        }
+        client.close();
+      });
+    )
   }
 });
 
@@ -211,20 +215,8 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
                     });
-                    // End of saving payment details to DB. Part 2.
+                    // End of saving payment details to DB. Part 1.
                   }
-                });
-              })
-              .then(function(result) {
-                console.log(result);
-                db.collection('messages').find({}).toArray(function(err, result) {
-                  console.log('filtered result from messages', result);
-                });
-
-                db.collection('messages').findOne({
-                  lastMessage: '/start'
-                }, function(err, result) {
-                  console.log('filtered result from messages', result);
                 });
               })
               .catch(function(err) {
