@@ -211,7 +211,7 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('costs').find({
+                      db.collection('costs').findOne({
                         _id: 5a76ddb9db1fbc0235ca692c,
                         userId: 100364646,
                         cashFlowType: 'Cost',
