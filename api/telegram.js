@@ -212,7 +212,7 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('messages').findOne({keywords: {'$in': '/start'}}).toArray(function(err, result) {
+                      db.collection('messages').find({keywords: {'$in': '/start'}}).toArray(function(err, result) {
                         console.log('result filtered', result);
                         client.close();
                       })
