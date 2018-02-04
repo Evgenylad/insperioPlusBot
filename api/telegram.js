@@ -58,6 +58,7 @@ const cashOrTransferMessageAttachedButtons = {
 
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 let insertOneToAnyDb = (collectionName, query) => {
+  console.log('function called');
   db.collection(collectionName).insertOne(query, function(err, result) {
     if (err) throw err;
     console.log('result of wrighting', result);
@@ -87,8 +88,8 @@ api.on('message', function(message)
             let db = client.db(dbName)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
-            console.log('myQuery');
             db.collection('messages').find({}).toArray(function(err, result) {
+              console.log('myQuery');
 
               if (err) throw err;
               if (!result) {
