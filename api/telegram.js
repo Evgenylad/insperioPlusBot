@@ -73,7 +73,7 @@ let callToMongoDb = (query, callback) => {
     if (err) throw err;
     console.log(query);
     console.log(callback);
-    callback(db);
+    callback(db, query);
     client.close();
   });
 };
@@ -139,7 +139,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb('query', findElement);
+    callToMongoDb({lastMessage: '/start'}, findElement);
   }
 });
 
