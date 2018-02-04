@@ -89,7 +89,7 @@ api.on('message', function(message)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log('messages in db', result);
+              console.log('messages in db', typeof result._id);
               if (err) throw err;
 
               if (!result) {
@@ -211,17 +211,17 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
+                      db.collection('messages').find({lastMessage: '/start'}, function(err, result) {
+                        console.log('filtered result 2', result);
+                      }).toArray(function(err, result) {
+                        console.log('filtered result 2', result);
+                      });
                       db.collection('messages').find({_id: '5a76e2bd4366a502c51cf048'}, function(err, result) {
                         console.log('filtered result', result);
                       }).toArray(function(err, result) {
                         console.log('filtered result', result);
                       });
 
-                      db.collection('messages').find({lastMessage: '/start'}, function(err, result) {
-                        console.log('filtered result 2', result);
-                      }).toArray(function(err, result) {
-                        console.log('filtered result 2', result);
-                      });
 
                       lastMessage: '/start'
                     });
