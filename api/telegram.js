@@ -130,7 +130,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb(callback);
+    callToMongoDb();
   }
 });
 
