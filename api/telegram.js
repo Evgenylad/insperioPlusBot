@@ -71,13 +71,13 @@ let callToMongoDb = (query, callback) => {
   MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     let db = client.db(dbName)
     if (err) throw err;
-    findElement();
+    findElement(db);
     client.close();
   });
 };
 
 // Helper function to find element in MongoDb
-let findElement = () => {
+let findElement = (db) => {
   db.collection('messages').find({}).toArray(function(err, result) {
     console.log('result in callback functin', result);
   });
