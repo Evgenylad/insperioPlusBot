@@ -93,10 +93,18 @@ api.on('message', function(message)
 
               if (err) throw err;
               if (!result) {
-                insertOneToAnyDb('messages', myQuery);
+                db.collection('messages').insertOne(myQuery, function(err, result) {
+                  if (err) throw err;
+                  console.log('result of wrighting', result);
+                  client.close();
+                });
               } else if (user === result){
                 db.collection('messages').drop();
-                insertOneToAnyDb('messages', myQuery);
+                db.collection('messages').insertOne(myQuery, function(err, result) {
+                  if (err) throw err;
+                  console.log('result of wrighting', result);
+                  client.close();
+                });
               }
               client.close();
             });
