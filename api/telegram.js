@@ -212,7 +212,7 @@ api.on('inline.callback.query', function(message)
                       });
 
                       db.collection('costs').findOne({
-                        userId: 100364646
+                        paymentRecipient: 'Плвр'
                       },function(err, result) {
                         console.log('filtered result 1', result);
                       });
