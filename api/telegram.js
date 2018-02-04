@@ -212,11 +212,7 @@ api.on('inline.callback.query', function(message)
                       });
 
                       db.collection('costs').findOne({
-                        _id: 5a76ddb9db1fbc0235ca692c,
-                        userId: 100364646,
-                        cashFlowType: 'Cost',
-                        paymentRecipient: 'Плвр',
-                        paymentType: 'Cash'
+                        userId: 100364646
                       }).toArray(function(err, result) {
                         console.log('filtered result 1', result);
                       });
