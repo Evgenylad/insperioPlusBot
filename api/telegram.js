@@ -211,7 +211,7 @@ api.on('inline.callback.query', function(message)
                         client.close();
                       });
 
-                      db.collection('messages').find({lastMessage: '/start'}, function(err, result) {
+                      db.collection('messages').find({'lastMessage': '/start'}, function(err, result) {
                         console.log('filtered result 2', result);
                       }).toArray(function(err, result) {
                         console.log('filtered result 2', result);
