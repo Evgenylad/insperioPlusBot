@@ -101,7 +101,6 @@ api.on('message', function(message)
                   client.close();
                 });
               } 
-              client.close();
             });
           });
         });
