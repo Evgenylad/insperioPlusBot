@@ -64,7 +64,6 @@ function insertOneToAnyDb(collectionName, query, db) {
   db.collection(collectionName).insertOne(query, function(err, result) {
     if (err) throw err;
     console.log('result of wrighting', result);
-    client.close();
   });
 };
 
