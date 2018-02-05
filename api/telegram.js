@@ -81,14 +81,14 @@ let callToMongoDb = (query, callback) => {
 // Helper function to retrieve all elements from MongoDb
 let getAllElements = (db) => {
   db.collection('messages').find({}).toArray(function(err, result) {
-    console.log('result in callback functin', result);
+    console.log('result in getAllElements callback', result);
   });
 };
 
 // Helper function to retrieve element from MongoDb. Elem should has Object type.
 let findElement = (db, elem) => {
   db.collection('messages').find(elem, function(err, result) {
-    console.log('result in callback functin', result);
+    console.log('result in findElement callback', result);
   });
 };
 
