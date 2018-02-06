@@ -140,7 +140,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb(getAllElements);
+    callToMongoDb(null, findElement);
   }
 });
 
