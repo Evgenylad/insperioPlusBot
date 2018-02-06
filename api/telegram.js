@@ -115,6 +115,7 @@ api.on('message', function(message)
             let db = client.db(dbName)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
+            console.log(db);
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log('messages in db', typeof result[0].lastMessage);
               if (err) throw err;
