@@ -122,7 +122,7 @@ api.on('message', function(message)
               if (!result) {
                 insertOneToAnyDb('messages', myQuery, db);
               } else if (user.id === result[0].user.id) {
-                //db.collection('messages').drop();
+                db.collection('messages').drop();
                 insertOneToAnyDb('messages', myQuery, db);
               }
               client.close();
@@ -140,7 +140,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb({lastMessage: '/start'}, findElement);
+    callToMongoDb(getAllElements);
   }
 });
 
