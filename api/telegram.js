@@ -120,10 +120,10 @@ api.on('message', function(message)
               if (err) throw err;
 
               if (!result) {
-                insertOneToAnyDb('messages', myQuery, db);
+                insertOneToAnyDb('messages', messageQuery, db);
               } else if (user.id === result[0].user.id) {
                 db.collection('messages').drop();
-                insertOneToAnyDb('messages', myQuery, db);
+                insertOneToAnyDb('messages', messageQuery, db);
               }
               client.close();
             });
