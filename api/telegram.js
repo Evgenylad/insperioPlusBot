@@ -68,7 +68,7 @@ let insertOneToAnyDb = (collectionName, query, db) => {
 };
 
 // Helper function to call MongoDb
-let callToMongoDb = (query, callback) => {
+let callToMongoDb = (query, collection, callback) => {
   MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     let db = client.db(dbName)
     if (err) throw err;
@@ -80,15 +80,15 @@ let callToMongoDb = (query, callback) => {
 };
 
 // Helper function to retrieve all elements from MongoDb
-let getAllElements = (db) => {
-  db.collection('messages').find({}).toArray(function(err, result) {
+let getAllElements = (db, collection) => {
+  db.collection(collection).find({}).toArray(function(err, result) {
     console.log('result in getAllElements callback', result);
   });
 };
 
 // Helper function to retrieve element from MongoDb. Elem should has Object type.
-let findElement = (db, elem) => {
-  db.collection('messages').findOne(elem, function(err, result) {
+let findElement = (db, collection, elem) => {
+  db.collection(collection).findOne(elem, function(err, result) {
     console.log('result in findElement callback', result);
   });
 };
@@ -114,7 +114,7 @@ api.on('message', function(message)
           MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
             let db = client.db(dbName)
             if (err) throw err;
-            let myQuery = {user: user, lastMessage: lastUserMessage};
+            let messageQuery = {userId: chatId, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
               console.log('messages in db', result[0].lastMessage);
               if (err) throw err;
@@ -140,7 +140,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb(null, findElement);
+    callToMongoDb(null, 'messages', findElement);
   }
 });
 
@@ -210,10 +210,12 @@ api.on('inline.callback.query', function(message)
                         if (err) throw err;
                         if (!result) {
                           console.log('!result');
+                          db.collection('messages').drop();
                           insertOneToAnyDb('costs', obj, db);
                           insertOneToAnyDb('messages', obj, db);
                         } else {
                           console.log('has result');
+                          db.collection('messages').drop();
                           insertOneToAnyDb('costs', obj, db);
                           insertOneToAnyDb('messages', obj, db);
                         }
