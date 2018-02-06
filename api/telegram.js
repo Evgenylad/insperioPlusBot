@@ -218,6 +218,18 @@ api.on('inline.callback.query', function(message)
                           db.collection('messages').drop();
                           insertOneToAnyDb('costs', obj, db);
                           insertOneToAnyDb('messages', obj, db);
+                          api.sendMessage({
+                            chat_id: chatId,
+                            text: 'Укажите сумму.',
+                            parse_mode: 'HTML',
+                            reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
+                          })
+                          .then(function(message) {
+                            console.log(message);
+                          })
+                          .catch(function(err) {
+                            console.log(err);
+                          })
                         }
                         client.close();
                       });
