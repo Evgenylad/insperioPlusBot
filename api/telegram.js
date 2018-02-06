@@ -312,6 +312,7 @@ api.on('edited.message', function(message)
 
 api.on('update', function(message)
 {
+  console.log('message in udates', message);
     // Generic update object
     // Subscribe on it in case if you want to handle all possible
     // event types in one callback
