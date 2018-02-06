@@ -57,6 +57,51 @@ const cashOrTransferMessageAttachedButtons = {
   ]
 };
 
+const spendingMessageAttachedButtons = {
+  inline_keyboard: [
+    [
+      {
+        text: 'Зарплата',
+        callback_data: 'Salary'
+      },
+      {
+        text: 'Представительские',
+        callback_data: 'Hospitality'
+      }
+    ],
+    [
+      {
+        text: 'Налоги',
+        callback_data: 'Taxes'
+      },
+      {
+        text: 'Банковские расходы',
+        callback_data: 'Bank'
+      }
+    ],
+    [
+      {
+        text: 'Гонорар',
+        callback_data: 'Fee'
+      },
+      {
+        text: 'Выручка',
+        callback_data: 'Income'
+      }
+    ],
+    [
+      {
+        text: 'Транспортные',
+        callback_data: 'Transportation'
+      },
+      {
+        text: 'Бухгалтерские расходы',
+        callback_data: 'Accountant'
+      }
+    ]
+  ]
+}
+
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 
 // Helper function to write one doc to collection
@@ -83,6 +128,14 @@ let callToMongoDb = (query, collection, callback) => {
 let getAllElements = (db, collection, elem) => {
   db.collection(collection).find({}).toArray(function(err, result) {
     console.log('result in getAllElements callback', result);
+    if (result.paymentTypeClicked === true && result.welcomeBtnClicked === true) {
+      api.sendMessage({
+        chat_id: chatId,
+        text: `Отлично! 😁  \nОсталось пара шагов. \nСейчас выберите, пожалуйста, статью расходов`,
+        reply_markup: JSON.stringify(spendingMessageAttachedButtons),
+        parse_mode: 'HTML'
+        })
+    }
   });
 };
 
