@@ -80,7 +80,7 @@ let callToMongoDb = (query, collection, callback) => {
 };
 
 // Helper function to retrieve all elements from MongoDb
-let getAllElements = (db, collection, null) => {
+let getAllElements = (db, collection, elem) => {
   db.collection(collection).find({}).toArray(function(err, result) {
     console.log('result in getAllElements callback', result);
   });
