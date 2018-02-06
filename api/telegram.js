@@ -212,12 +212,12 @@ api.on('inline.callback.query', function(message)
                           console.log('!result');
                           db.collection('messages').drop();
                           insertOneToAnyDb('costs', obj, db);
-                          insertOneToAnyDb('messages', obj, db);
+                          insertOneToAnyDb('messages', messageQuery, db);
                         } else {
                           console.log('has result');
                           db.collection('messages').drop();
                           insertOneToAnyDb('costs', obj, db);
-                          insertOneToAnyDb('messages', obj, db);
+                          insertOneToAnyDb('messages', messageQuery, db);
                           api.sendMessage({
                             chat_id: chatId,
                             text: 'Укажите сумму.',
