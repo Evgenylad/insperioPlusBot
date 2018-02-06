@@ -147,6 +147,7 @@ let findElement = (db, collection, elem) => {
 api.on('message', function(message)
 {
     // Received text message
+    console.log(message);
     let chatId = message.chat.id;
     let userName = message.from.first_name;
     let user = message.from;
