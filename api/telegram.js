@@ -122,7 +122,7 @@ api.on('message', function(message)
 
               if (!result) {
                 insertOneToAnyDb('messages', messageQuery, db);
-              } else if (user.id === result[0].user.id) {
+              } else if (user.id === result[0].userId) {
                 db.collection('messages').drop();
                 insertOneToAnyDb('messages', messageQuery, db);
               }
