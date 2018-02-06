@@ -117,8 +117,6 @@ let callToMongoDb = (query, collection, callback) => {
   MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     let db = client.db(dbName)
     if (err) throw err;
-    console.log(query);
-    console.log(callback);
     callback(db, collection, query);
     client.close();
   });
@@ -127,7 +125,7 @@ let callToMongoDb = (query, collection, callback) => {
 // Helper function to retrieve all elements from MongoDb
 let getAllElements = (db, collection, elem) => {
   db.collection(collection).find({}).toArray(function(err, result) {
-    console.log('result in getAllElements callback', result);
+    console.log('result in getAllElements callback', typeof result.paymentTypeClicked);
     if (result.paymentTypeClicked === true && result.welcomeBtnClicked === true) {
       api.sendMessage({
         chat_id: chatId,
