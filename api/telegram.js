@@ -105,8 +105,21 @@ const spendingMessageAttachedButtons = {
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 
 // Helper function to write one doc to collection
-let insertOneToAnyDb = (collectionName, query, db) => {
-  db.collection(collectionName).insertOne(query, function(err, result) {
+let insertOneToAnyDb = (collection, query, db) => {
+  db.collection(collection).find({}).toArray(function(err, result) {
+    let elem = result.length - 1;
+
+    console.log(result.length);
+    console.log('result in getAllElements callback', result);
+    console.log('result in getAllElements callback', result[elem]);
+
+    db.collection(collection).insertOne(query, function(err, result) {
+      if (err) throw err;
+      console.log('query have been inserted to db', query);
+    });
+  });
+
+  db.collection(collection).insertOne(query, function(err, result) {
     if (err) throw err;
     console.log('query have been inserted to db', query);
   });
@@ -126,14 +139,6 @@ let callToMongoDb = (query, collection, callback) => {
 let getAllElements = (db, collection, elem) => {
   db.collection(collection).find({}).toArray(function(err, result) {
     console.log('result in getAllElements callback', typeof result.paymentTypeClicked);
-    if (result.paymentTypeClicked === true && result.welcomeBtnClicked === true) {
-      api.sendMessage({
-        chat_id: chatId,
-        text: `Отлично! 😁  \nОсталось пара шагов. \nСейчас выберите, пожалуйста, статью расходов`,
-        reply_markup: JSON.stringify(spendingMessageAttachedButtons),
-        parse_mode: 'HTML'
-        })
-    }
   });
 };
 
@@ -146,13 +151,42 @@ let findElement = (db, collection, elem) => {
 
 api.on('message', function(message)
 {
-    // Received text message
-    console.log('message type on message', message);
-    let chatId = message.chat.id;
-    let userName = message.from.first_name;
-    let user = message.from;
-    let userId = message.from.id;
-    let lastUserMessage = message.text;
+
+});
+
+api.on('inline.query', function(message)
+{
+    // Received inline query
+    console.log('message inline result', message);
+});
+
+api.on('inline.result', function(message)
+{
+    // Received chosen inline result
+    console.log('message inline result', message);
+});
+
+api.on('inline.callback.query', function(message)
+{
+    // New incoming callback query
+
+});
+
+api.on('edited.message', function(message)
+{
+    // Message that was edited
+    console.log('edited message', message);
+});
+
+api.on('update', function(message)
+{
+  // Received text message
+  console.log('message type on message', message);
+  let chatId = message.chat.id;
+  let userName = message.from.first_name;
+  let user = message.from;
+  let userId = message.from.id;
+  let lastUserMessage = message.text;
 
   if (message !== undefined && message.text === '/start') {
     if (userId === verifiedUsers) {
@@ -191,26 +225,7 @@ api.on('message', function(message)
 
         });
     }
-  } else {
-    callToMongoDb(null, 'messages', getAllElements);
-  }
-});
-
-api.on('inline.query', function(message)
-{
-    // Received inline query
-    console.log('message inline result', message);
-});
-
-api.on('inline.result', function(message)
-{
-    // Received chosen inline result
-    console.log('message inline result', message);
-});
-
-api.on('inline.callback.query', function(message)
-{
-    // New incoming callback query
+  } else if (message.text === undefined && message.data !== undefined) {
     let chatId = message.message.chat.id;
     let user = message.message.chat;
     console.log('user', chatId);
@@ -229,90 +244,17 @@ api.on('inline.callback.query', function(message)
         parse_mode: 'HTML'
         })
         .then(function(message) {
-          console.log('message', message);
-          console.log('obj1 - ', obj);
-          api.on('message', function(message) {
-            if (message.text !== '/start') {
-              console.log('message 2', message);
-              obj.paymentRecipient = message.text;
-              console.log('obj2 - ', obj);
-              // Asking paymentType message code start
-              api.sendMessage({
-                chat_id: chatId,
-                text: 'Нажмите одну из двух кнопок ниже, чтобы выбрать тип платежа',
-                parse_mode: 'HTML',
-                reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
-              })
-              .then(function(message) {
-                api.on('inline.callback.query', function(message) {
-                  if (message.data === 'Cash' || message.data === 'Transfer') {
-                    console.log(message.data);
-                    messageQuery.paymentTypeClicked = true;
-                    obj.paymentType = message.data;
-                    console.log('obj3 - ', obj);
-                    console.log('messageQuery3 - ', messageQuery);
-
-                    // Start of saving payment details to DB. Part 1.
-                    MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
-                      let db = client.db(dbName)
-                      console.log(' Объект до сохранения в базу расходов первый раз - ', obj);
-                      if (err) throw err;
-
-                      db.collection('costs').find({}).toArray(function(err, result) {
-                        console.log('записи сохраненные в базе на данный момент', result);
-                        if (err) throw err;
-                        if (!result) {
-                          console.log('!result');
-                          db.collection('messages').drop();
-                          insertOneToAnyDb('costs', obj, db);
-                          insertOneToAnyDb('messages', messageQuery, db);
-                        } else {
-                          console.log('has result');
-                          db.collection('messages').drop();
-                          insertOneToAnyDb('costs', obj, db);
-                          insertOneToAnyDb('messages', messageQuery, db);
-                          api.sendMessage({
-                            chat_id: chatId,
-                            text: 'Укажите сумму.',
-                            parse_mode: 'HTML'
-                          })
-                          .then(function(message) {
-                            console.log(message);
-                          })
-                          .catch(function(err) {
-                            console.log(err);
-                          })
-                        }
-                        client.close();
-                      });
-                    });
-                    // End of saving payment details to DB. Part 1.
-                  }
-                });
-              })
-              .catch(function(err) {
-                console.log(err);
-              });
-              // Asking paymentType message code end
-            }
-          });
+          callToMongoDb(obj, 'costs', insertOneToAnyDb)
         })
         .catch(function(err) {
-            console.log(err);
-        });
-      // Asking paymentRecipient message code end
+          console.log(err);
+        })
+    } else if (message.data === 'Cash' || message.data === 'Transfer') {
+
     }
-});
-
-api.on('edited.message', function(message)
-{
-    // Message that was edited
-    console.log('edited message', message);
-});
-
-api.on('update', function(message)
-{
-  console.log('message in udates', message);
+  } else if (true) {
+    callToMongoDb(null, 'messages', getAllElements);
+  }
     // Generic update object
     // Subscribe on it in case if you want to handle all possible
     // event types in one callback
