@@ -147,7 +147,7 @@ let findElement = (db, collection, elem) => {
 api.on('message', function(message)
 {
     // Received text message
-    console.log(message);
+    console.log('message type on message', message);
     let chatId = message.chat.id;
     let userName = message.from.first_name;
     let user = message.from;
@@ -219,6 +219,7 @@ api.on('inline.callback.query', function(message)
     let messageQuery = {};
 
     if (message.data === 'Income' || message.data === 'Cost') {
+      console.log('message type on inline btn click', message);
       obj = {userId: chatId, cashFlowType: message.data};
       messageQuery = {userId: chatId, welcomeBtnClicked: true};
       // Asking paymentRecipient message code start
