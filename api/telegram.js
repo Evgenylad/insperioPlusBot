@@ -88,7 +88,7 @@ let getAllElements = (db) => {
 
 // Helper function to retrieve element from MongoDb. Elem should has Object type.
 let findElement = (db, elem) => {
-  db.collection('messages').find(elem, function(err, result) {
+  db.collection('messages').findOne(elem, function(err, result) {
     console.log('result in findElement callback', result);
   });
 };
@@ -116,7 +116,7 @@ api.on('message', function(message)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log('messages in db', typeof result[0].lastMessage);
+              console.log('messages in db', result[0].lastMessage);
               if (err) throw err;
 
               if (!result) {
