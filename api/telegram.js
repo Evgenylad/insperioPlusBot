@@ -89,7 +89,7 @@ let getAllElements = (db, collection, elem) => {
 // Helper function to retrieve element from MongoDb. Elem should has Object type.
 let findElement = (db, collection, elem) => {
   db.collection(collection).findOne(elem, function(err, result) {
-    console.log('result in findElement callback', result.paymentTypeClicked);
+    console.log('result in findElement callback', result);
   });
 };
 
@@ -140,7 +140,7 @@ api.on('message', function(message)
         });
     }
   } else {
-    callToMongoDb(null, 'messages', findElement);
+    callToMongoDb(null, 'messages', getAllElements);
   }
 });
 
@@ -221,8 +221,7 @@ api.on('inline.callback.query', function(message)
                           api.sendMessage({
                             chat_id: chatId,
                             text: 'Укажите сумму.',
-                            parse_mode: 'HTML',
-                            reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons)
+                            parse_mode: 'HTML'
                           })
                           .then(function(message) {
                             console.log(message);
