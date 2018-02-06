@@ -3,6 +3,7 @@ const express = require('express');
 const telegramRouter = express.Router();
 const telegram = require('telegram-bot-api');
 const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 const dbName = 'telegramBot';
 
 let api = new telegram({
@@ -68,7 +69,7 @@ let insertOneToAnyDb = (collectionName, query, db) => {
 
 // Helper function to call MongoDb
 let callToMongoDb = (query, callback) => {
-  MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+  mongoose.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
     let db = client.db(dbName)
     if (err) throw err;
     console.log(query);
@@ -110,7 +111,7 @@ api.on('message', function(message)
         parse_mode: 'HTML'
         })
         .then(function(message) {
-          MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+          mongoose.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
             let db = client.db(dbName)
             if (err) throw err;
             let myQuery = {user: user, lastMessage: lastUserMessage};
@@ -199,7 +200,7 @@ api.on('inline.callback.query', function(message)
                     console.log('messageQuery3 - ', messageQuery);
 
                     // Start of saving payment details to DB. Part 1.
-                    MongoClient.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
+                    mongoose.connect('mongodb+srv://evgenylad:Sharon50!@telegrambotcluster-la0aj.mongodb.net/telegramBot', (err, client) => {
                       let db = client.db(dbName)
                       console.log(' Объект до сохранения в базу расходов первый раз - ', obj);
                       if (err) throw err;
