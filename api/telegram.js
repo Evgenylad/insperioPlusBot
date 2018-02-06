@@ -88,9 +88,8 @@ let getAllElements = (db, collection, elem) => {
 
 // Helper function to retrieve element from MongoDb. Elem should has Object type.
 let findElement = (db, collection, elem) => {
-  console.log('collection ', collection);
   db.collection(collection).findOne(elem, function(err, result) {
-    console.log('result in findElement callback', result);
+    console.log('result in findElement callback', result.paymentTypeClicked);
   });
 };
 
