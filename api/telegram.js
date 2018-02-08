@@ -250,9 +250,19 @@ api.on('update', function(message)
           console.log(err);
         })
     } else if (message.data === 'Cash' || message.data === 'Transfer') {
-
+      api.sendMessage({
+        chat_id: chatId,
+        text: 'Введите сумму. \nЗнаки ➕ или ➖ указывать НЕ надо.',
+        parse_mode: 'HTML'
+        })
+        .then(function(message) {
+          callToMongoDb(obj, 'costs', insertOneToAnyDb)
+        })
+        .catch(function(err) {
+          console.log(err);
+        })
     }
-  } else if (true) {
+  } else {
     callToMongoDb(null, 'messages', getAllElements);
   }
     // Generic update object
