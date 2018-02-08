@@ -191,12 +191,12 @@ api.on('update', function(message)
 
   if (message.message !== undefined) {
     message = message.message;
+    console.log('textMessage ', message);
     chatId = message.chat.id;
     userName = message.from.first_name;
     user = message.from;
     userId = message.from.id;
     lastUserMessage = message.text;
-    console.log('textMessage ', message);
   } else if (message.callback_query !== undefined) {
     console.log('callbackQuery ', message);
     message = message.callback_query;
