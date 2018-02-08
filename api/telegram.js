@@ -105,7 +105,7 @@ const spendingMessageAttachedButtons = {
 const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USERS.evgenyId;
 
 // Helper function to write one doc to collection
-let insertOneToAnyDb = (collection, query, db) => {
+let insertOneToAnyDb = (db, collection, query) => {
   // db.collection(collection).find({}).toArray(function(err, result) {
   //   let elem = result.length - 1;
   //
