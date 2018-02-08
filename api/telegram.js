@@ -185,10 +185,14 @@ api.on('update', function(message)
 {
   // Received text message
   console.log('message type on message', message);
-  let textMessage = message.message;
-  let callbackQuery = message.callback_query;
-  console.log('textMessage ', textMessage);
-  console.log('callbackQuery ', callbackQuery);
+  if (!message.message) {
+    message = message.message;
+    console.log('textMessage ', message);
+  } else if (!message.callback_query) {
+    message = message.callback_query;
+    console.log('callbackQuery ', message);
+  }
+
   let chatId = message.chat.id;
   let userName = message.from.first_name;
   let user = message.from;
@@ -196,7 +200,7 @@ api.on('update', function(message)
   let userId = message.from.id;
   let lastUserMessage = message.text;
 
-  if (message !== undefined && message.text === '/start') {
+  if (textMessage !== undefined && textMessage.text === '/start') {
     if (userId === verifiedUsers) {
       api.sendMessage({
         chat_id: chatId,
