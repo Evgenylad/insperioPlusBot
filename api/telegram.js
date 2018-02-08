@@ -186,6 +186,7 @@ api.on('update', function(message)
   let chatId = message.chat.id;
   let userName = message.from.first_name;
   let user = message.from;
+  console.log(user);
   let userId = message.from.id;
   let lastUserMessage = message.text;
 
@@ -206,7 +207,7 @@ api.on('update', function(message)
               console.log('messages in db', result.length);
               if (err) throw err;
 
-              if (!result) {
+              if (result.length === 0) {
                 console.log('Пустая коллекция messages', result);
                 insertOneToAnyDb('messages', messageQuery, db);
               } else if (user.id === result[0].userId) {
