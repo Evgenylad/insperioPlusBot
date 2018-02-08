@@ -122,7 +122,6 @@ let insertOneToAnyDb = (collection, query, db) => {
   db.collection(collection).insertOne(query, function(err, result) {
     if (err) throw err;
     console.log('query have been inserted to db', query);
-    console.log('result ', result);
   });
 };
 
@@ -198,9 +197,8 @@ api.on('update', function(message)
     userId = message.from.id;
     lastUserMessage = message.text;
   } else if (message.callback_query !== undefined) {
-    console.log('callbackQuery ', message);
     message = message.callback_query;
-    message = message.message;
+    console.log('callbackQuery ', message);
     chatId = message.chat.id;
     userName = message.from.first_name;
     user = message.from;
