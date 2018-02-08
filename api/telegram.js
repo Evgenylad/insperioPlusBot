@@ -270,6 +270,7 @@ api.on('update', function(message)
         })
         .then(function(message) {
           callToMongoDb(obj, 'costs', insertOneToAnyDb)
+          callToMongoDb(messageQuery, 'messages', insertOneToAnyDb)
         })
         .catch(function(err) {
           console.log(err);
