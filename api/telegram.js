@@ -203,7 +203,7 @@ api.on('update', function(message)
             if (err) throw err;
             let messageQuery = {userId: chatId, lastMessage: lastUserMessage};
             db.collection('messages').find({}).toArray(function(err, result) {
-              console.log('messages in db', result[0].lastMessage);
+              console.log('messages in db', result);
               if (err) throw err;
 
               if (!result) {
