@@ -146,6 +146,20 @@ let getAllElements = (db, collection, elem) => {
 let findElement = (db, collection, elem) => {
   db.collection(collection).findOne(elem, function(err, result) {
     console.log('result in findElement callback', result);
+    if (result !== null && ressult.welcomeBtnClicked === true) {
+      api.sendMessage({
+        chat_id: chatId,
+        text: `Выберите способ оплаты`,
+        reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons),
+        parse_mode: 'HTML'
+      })
+      .then(function(message) {
+
+      })
+      catch(function(err) {
+        console.log(err);
+      });
+    };
   });
 };
 
