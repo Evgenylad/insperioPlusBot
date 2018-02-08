@@ -116,6 +116,7 @@ let insertOneToAnyDb = (collection, query, db) => {
     console.log('result in getAllElements callback', result[elem]);
 
     db.collection(collection).insertOne(query, function(err, result) {
+      console.log('result 2', result);
       if (err) throw err;
       console.log('query have been inserted to db', query);
     });
