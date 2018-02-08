@@ -189,6 +189,7 @@ api.on('update', function(message)
     message = message.message;
     console.log('textMessage ', message);
   } else if (!message.callback_query) {
+    console.log(message);
     message = message.callback_query;
     console.log('callbackQuery ', message);
   }
