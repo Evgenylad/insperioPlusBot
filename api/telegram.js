@@ -241,6 +241,7 @@ api.on('update', function(message)
         });
     }
   } else if (message.text === undefined && message.data !== undefined) {
+    console.log('message data - ', message);
     let chatId = message.message.chat.id;
     let user = message.message.chat;
     console.log('user', chatId);
