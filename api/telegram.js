@@ -228,7 +228,7 @@ api.on('update', function(message)
               } else if (user.id === result[0].userId) {
                 console.log('messages in db', result);
                 db.collection('messages').drop();
-                insertOneToAnyDb('messages', messageQuery, db);
+                insertOneToAnyDb(db, 'messages', messageQuery);
               }
               client.close();
             });
