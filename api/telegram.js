@@ -199,11 +199,10 @@ api.on('update', function(message)
   } else if (message.callback_query !== undefined) {
     message = message.callback_query;
     console.log('callbackQuery ', message);
-    chatId = message.chat.id;
+    chatId = message.message.chat.id;
     userName = message.from.first_name;
     user = message.from;
     userId = message.from.id;
-    lastUserMessage = message.text;
   }
 
   if (message !== undefined && message.text === '/start') {
