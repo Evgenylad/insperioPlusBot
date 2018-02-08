@@ -185,7 +185,7 @@ api.on('update', function(message)
 {
   // Received text message
   console.log('message type on message', message);
-  if (!message.message) {
+  if (message.message !== undefined) {
     message = message.message;
     console.log('textMessage ', message);
   } else if (!message.callback_query) {
