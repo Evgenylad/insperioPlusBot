@@ -201,7 +201,7 @@ api.on('update', function(message)
   let userId = message.from.id;
   let lastUserMessage = message.text;
 
-  if (textMessage !== undefined && textMessage.text === '/start') {
+  if (message !== undefined && message.text === '/start') {
     if (userId === verifiedUsers) {
       api.sendMessage({
         chat_id: chatId,
