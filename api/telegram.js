@@ -244,6 +244,8 @@ api.on('update', function(message)
 
         });
     }
+  } else if (message.text !== '/start' && message.data === undefined) {
+    console.log('message !== start');
   } else if (message.text === undefined && message.data !== undefined) {
     console.log('message data - ', message);
     let chatId = message.message.chat.id;
