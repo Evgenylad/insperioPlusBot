@@ -156,7 +156,7 @@ let findElement = (db, collection, elem) => {
       .then(function(message) {
 
       })
-      catch(function(err) {
+      .catch(function(err) {
         console.log(err);
       });
     };
