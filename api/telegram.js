@@ -185,7 +185,10 @@ api.on('update', function(message)
 {
   // Received text message
   console.log('message type on message', message);
-  message = message.message;
+  let textMessage = message.message;
+  let callbackQuery = message.callback_query;
+  console.log('textMessage ', textMessage);
+  console.log('callbackQuery ', callbackQuery);
   let chatId = message.chat.id;
   let userName = message.from.first_name;
   let user = message.from;
