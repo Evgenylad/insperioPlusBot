@@ -182,7 +182,7 @@ api.on('update', function(message)
 {
   // Received text message
   console.log('message type on message', message);
-  let message = message.message;
+  message = message.message;
   let chatId = message.chat.id;
   let userName = message.from.first_name;
   let user = message.from;
