@@ -106,6 +106,8 @@ const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USER
 
 // Helper function to write one doc to collection
 let insertOneToAnyDb = (collection, query, db) => {
+  console.log('collection ', collection);
+  console.log('db ', db);
   db.collection(collection).find({}).toArray(function(err, result) {
     let elem = result.length - 1;
 
