@@ -108,23 +108,23 @@ const verifiedUsers = constants.ACEPTED_USERS.evgenyId || constants.ACEPTED_USER
 let insertOneToAnyDb = (collection, query, db) => {
   console.log('collection ', collection);
   console.log('db ', db);
-  db.collection(collection).find({}).toArray(function(err, result) {
-    let elem = result.length - 1;
-
-    console.log(result.length);
-    console.log('result in getAllElements callback', result);
-    console.log('result in getAllElements callback', result[elem]);
-
-    db.collection(collection).insertOne(query, function(err, result) {
-      console.log('err', err);
-      if (err) throw err;
-      console.log('query have been inserted to db', query);
-    });
-  });
+  // db.collection(collection).find({}).toArray(function(err, result) {
+  //   let elem = result.length - 1;
+  //
+  //   console.log(result.length);
+  //   console.log('result in getAllElements callback', result);
+  //   console.log('result in getAllElements callback', result[elem]);
+  //
+  //   db.collection(collection).insertOne(query, function(err, result) {
+  //     if (err) throw err;
+  //     console.log('query have been inserted to db', query);
+  //   });
+  // });
 
   db.collection(collection).insertOne(query, function(err, result) {
     if (err) throw err;
     console.log('query have been inserted to db', query);
+    console.log('result ', result);
   });
 };
 
