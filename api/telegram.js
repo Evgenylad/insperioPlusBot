@@ -207,8 +207,10 @@ api.on('update', function(message)
               if (err) throw err;
 
               if (!result) {
+                console.log('Пустая коллекция messages', result);
                 insertOneToAnyDb('messages', messageQuery, db);
               } else if (user.id === result[0].userId) {
+                console.log('messages in db', result);
                 db.collection('messages').drop();
                 insertOneToAnyDb('messages', messageQuery, db);
               }
