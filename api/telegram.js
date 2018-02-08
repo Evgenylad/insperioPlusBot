@@ -146,7 +146,7 @@ let getAllElements = (db, collection, elem) => {
 let findElement = (db, collection, elem) => {
   db.collection(collection).findOne(elem, function(err, result) {
     console.log('result in findElement callback', result);
-    if (result !== null && ressult.welcomeBtnClicked === true) {
+    if (result !== null && result.welcomeBtnClicked === true) {
       api.sendMessage({
         chat_id: chatId,
         text: `Выберите способ оплаты`,
@@ -158,7 +158,7 @@ let findElement = (db, collection, elem) => {
       })
       .catch(function(err) {
         console.log(err);
-      });
+      });;
     };
   });
 };
