@@ -148,7 +148,7 @@ let findElement = (db, collection, elem) => {
     console.log('result in findElement callback', result);
     if (result !== null && result.welcomeBtnClicked === true) {
       api.sendMessage({
-        chat_id: chatId,
+        chat_id: result.userId,
         text: `Выберите способ оплаты`,
         reply_markup: JSON.stringify(cashOrTransferMessageAttachedButtons),
         parse_mode: 'HTML'
