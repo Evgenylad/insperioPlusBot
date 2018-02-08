@@ -183,18 +183,34 @@ api.on('update', function(message)
 {
   // Received text message
   console.log('message type on message', message);
+  let chatId;
+  let userName;
+  let user;
+  let userId;
+  let lastUserMessage;
+
   if (message.message !== undefined) {
     message = message.message;
+    chatId = message.chat.id;
+    userName = message.from.first_name;
+    user = message.from;
+    userId = message.from.id;
+    lastUserMessage = message.text;
     console.log('textMessage ', message);
   } else if (message.callback_query !== undefined) {
-    message = message.callback_query.message;
     console.log('callbackQuery ', message);
+    message = message.callback_query;
+    message = message.message;
+    chatId = message.chat.id;
+    userName = message.from.first_name;
+    user = message.from;
+    userId = message.from.id;
+    lastUserMessage = message.text;
   }
 
   let chatId = message.chat.id;
   let userName = message.from.first_name;
   let user = message.from;
-  console.log(user);
   let userId = message.from.id;
   let lastUserMessage = message.text;
 
