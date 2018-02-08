@@ -188,7 +188,7 @@ api.on('update', function(message)
   if (message.message !== undefined) {
     message = message.message;
     console.log('textMessage ', message);
-  } else if (!message.callback_query) {
+  } else if (message.callback_query !== undefined) {
     console.log(message);
     message = message.callback_query;
     console.log('callbackQuery ', message);
