@@ -182,11 +182,11 @@ api.on('update', function(message)
 {
   // Received text message
   console.log('message type on message', message);
-  let chatId = message.chat;
-  let userName = message.from.first_name;
-  let user = message.from;
-  let userId = message.from.id;
-  let lastUserMessage = message.text;
+  let chatId = message.message.chat.id;
+  let userName = message.message.from.first_name;
+  let user = message.message.from;
+  let userId = message.message.from.id;
+  let lastUserMessage = message.message.text;
 
   if (message !== undefined && message.text === '/start') {
     if (userId === verifiedUsers) {
